@@ -30,20 +30,60 @@ const CELL = {
   PLAYER_ON_TARGET: "+",
 } as const;
 
-const levels: Level[] = [
-  [
-    ["#", "#", "#", "#", "#"],
-    ["#", ".", ".", ".", "#"],
-    ["#", "$", "$", "$", "#"],
-    ["#", "@", ".", " ", "#"],
-    ["#", "#", "#", "#", "#"],
-  ],
-];
-const generateLevel = () => deepCopy(levels[0]);
+// Loading state
+const isLoading = ref(true);
+const levels = ref<{ level: Level }[]>([]);
+const currentLevelIndex = ref(0);
+
+// Function to load levels from JSON file
+async function loadLevels() {
+  try {
+    isLoading.value = true;
+    const response = await fetch("./src/assets/original.json");
+    const data = await response.json();
+    levels.value = data;
+
+    // Select a random level based on the current date
+    selectRandomLevel();
+
+    isLoading.value = false;
+  } catch (error) {
+    console.error("Error loading levels:", error);
+    isLoading.value = false;
+  }
+}
+
+// Function to select a random level based on the current date
+function selectRandomLevel() {
+  const today = new Date();
+  const day = today.getDate();
+
+  // Use the day as a seed for the random selection
+  // This ensures the same level is selected throughout the day
+  const index = day % levels.value.length;
+  currentLevelIndex.value = index;
+}
+
+const generateLevel = () => {
+  if (levels.value.length === 0) {
+    // Return a default level if no levels are loaded
+    return [
+      ["#", "#", "#", "#", "#"],
+      ["#", ".", ".", ".", "#"],
+      ["#", "$", "$", "$", "#"],
+      ["#", "@", " ", " ", "#"],
+      ["#", "#", "#", "#", "#"],
+    ] as Cell[][];
+  }
+
+  // Convert the level format from the JSON file to the format used by the game
+  const jsonLevel = levels.value[currentLevelIndex.value].level;
+  return deepCopy(jsonLevel);
+};
 
 // Game state
-const level = ref(generateLevel());
-const playerPosition = ref(findPlayerInLevel(level.value)!);
+const level = ref<Level>([]);
+const playerPosition = ref<LevelPosition>({ x: 0, y: 0 });
 const moveCount = ref(0);
 const gameTime = ref(0);
 const timerInterval = ref<number | null>(null);
@@ -81,7 +121,12 @@ const gameStatus = computed<"won" | "playing" | "lost">(() => {
   return hasWon ? "won" : "playing";
 });
 
-onMounted(() => startTimer());
+onMounted(async () => {
+  await loadLevels();
+  level.value = generateLevel();
+  playerPosition.value = findPlayerInLevel(level.value)!;
+  startTimer();
+});
 onUnmounted(() => stopTimer());
 
 function startTimer() {
@@ -115,13 +160,20 @@ watch(
         localStorage.setItem("recordTime", recordTime.value.toString());
       }
     }
-  },
-  { immediate: true }
+  }
 );
 
+// Level selector state
+const showLevelSelector = ref(false);
+
 onKeyStroke(
-  ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "r", "R", "u", "U"],
+  ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "r", "R", "u", "U", "l", "L"],
   (event) => {
+    // Don't process movement keys if level selector is open
+    if (showLevelSelector.value && !["l", "L"].includes(event.key)) {
+      return;
+    }
+    
     switch (event.key) {
       case "ArrowUp":
         return move(0, -1);
@@ -138,6 +190,11 @@ onKeyStroke(
       case "U":
       case "u":
         undoMove();
+        break;
+      case "L":
+      case "l":
+        showLevelSelector.value = !showLevelSelector.value;
+        break;
     }
   }
 );
@@ -199,13 +256,24 @@ function move(dx: number, dy: number) {
 }
 
 function restartGame() {
-  const newLevel = deepCopy(levels[0]);
-  level.value = newLevel;
-  playerPosition.value = findPlayerInLevel(newLevel)!;
+  level.value = generateLevel();
+  playerPosition.value = findPlayerInLevel(level.value)!;
   moveCount.value = 0;
   gameTime.value = 0;
   moveHistory.value = [];
   startTimer();
+}
+
+// Function to select a specific level by index
+function selectLevel(index: number) {
+  currentLevelIndex.value = index;
+  level.value = generateLevel();
+  playerPosition.value = findPlayerInLevel(level.value)!;
+  moveCount.value = 0;
+  gameTime.value = 0;
+  moveHistory.value = [];
+  startTimer();
+  showLevelSelector.value = false;
 }
 
 function undoMove() {
@@ -230,7 +298,66 @@ function findPlayerInLevel(level: Level): LevelPosition | null {
 
 <template>
   <div
-    v-if="gameStatus === 'won'"
+    v-if="isLoading"
+    class="flex flex-col justify-center items-center p-8 font-light outline-none rounded-xl min-h-[300px] min-w-[300px]"
+  >
+    <div class="text-center">
+      <div
+        class="inline-block w-12 h-12 border-4 border-[#3498db] border-t-transparent rounded-full animate-spin"
+      ></div>
+      <div class="mt-4 text-[#666]">Loading level...</div>
+    </div>
+  </div>
+
+  <!-- Level Selector -->
+  <div
+    v-if="showLevelSelector"
+    class="fixed inset-0 bg-[#ddd] bg-opacity-50 flex items-center justify-center z-50"
+  >
+    <div class="bg-white rounded-xl p-6 max-w-4xl max-h-[80vh] overflow-auto">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-light text-[#2c3e50]">Select a Level</h2>
+        <button
+          @click="showLevelSelector = false"
+          class="text-[#999] hover:text-[#666] text-xl"
+        >
+          ×
+        </button>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <button
+          v-for="(levelData, index) in levels"
+          :key="index"
+          @click="selectLevel(index)"
+          class="p-4 bg-[#f5f5f5] hover:bg-[#e0e0e0] rounded-lg transition-colors duration-200 flex flex-col items-center"
+          :class="{ 'border-2 border-[#3498db]': index === currentLevelIndex }"
+        >
+          <div class="text-lg font-light mb-2">Level {{ index + 1 }}</div>
+          <div class="w-full aspect-square bg-[#fafafa] rounded overflow-hidden flex items-center justify-center">
+            <div class="transform scale-[0.4] origin-center">
+              <div v-for="(row, y) in levelData.level" :key="y" class="flex">
+                <div
+                  v-for="(cell, x) in row"
+                  :key="x"
+                  class="w-6 h-6 rounded"
+                  :class="{
+                    'bg-[#2c3e50]': cell === '#',
+                    'bg-[#ddb61c] rounded-full scale-[30%]': cell === '.',
+                    'bg-[#e67e22]': cell === '$',
+                    'bg-[#27ae60]': cell === '*',
+                    'bg-[#3498db] rounded-full': cell === '@' || cell === '+',
+                  }"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    v-else-if="gameStatus === 'won'"
     class="flex flex-col justify-center items-center p-8 font-light outline-none rounded-xl min-h-[300px] min-w-[300px]"
   >
     <div class="text-center">
@@ -277,7 +404,7 @@ function findPlayerInLevel(level: Level): LevelPosition | null {
   </div>
 
   <div
-    v-else
+    v-else-if="!isLoading"
     class="flex flex-col justify-center items-center p-8 outline-none rounded-xl"
     tabindex="0"
     ref="boardRef"
@@ -293,7 +420,7 @@ function findPlayerInLevel(level: Level): LevelPosition | null {
     </div>
 
     <!-- Game Board -->
-    <div class="flex flex-col gap-0.5 bg-white rounded-lg">
+    <div class="flex flex-col gap-0.5 bg-[#fafafa] rounded-lg">
       <div v-for="(row, y) in level" :key="y" class="flex gap-0.5">
         <div
           v-for="(cell, x) in row"
@@ -337,6 +464,14 @@ function findPlayerInLevel(level: Level): LevelPosition | null {
           U
         </span>
         <span>Undo</span>
+      </div>
+      <div class="flex items-center">
+        <span
+          class="inline-block px-1.5 py-0.5 bg-[#f1f1f1] rounded mr-1.5 text-[#666] font-medium"
+        >
+          L
+        </span>
+        <span>Levels</span>
       </div>
     </div>
   </div>
