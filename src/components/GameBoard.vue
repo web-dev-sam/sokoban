@@ -39,7 +39,7 @@ const currentLevelIndex = ref(0);
 async function loadLevels() {
   try {
     isLoading.value = true;
-    const response = await fetch("./src/assets/original.json");
+    const response = await fetch("/original.json");
     const data = await response.json();
     levels.value = data;
 
