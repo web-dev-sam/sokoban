@@ -60,7 +60,7 @@ async function loadLevels(collection: (typeof COLLECTIONS)[number]) {
 
 <template>
   <div
-    class="flex flex-col items-center justify-center min-h-screen p-8 bg-[#fafafa]"
+    class="flex flex-col items-center justify-center min-h-screen p-8 bg-gray-light"
   >
     <h1 class="sr-only">Sokoban</h1>
     <ConfettiLauncher :trigger="confettiTrigger" />

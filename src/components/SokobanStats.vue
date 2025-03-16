@@ -9,8 +9,8 @@ defineProps<{
 </script>
 
 <template>
-  <div class="-translate-y-3 text-lg">{{ title }}</div>
-  <div class="flex justify-between w-full max-w-[300px] mb-6 text-[#666]">
+  <div class="-translate-y-3 text-lg text-text-primary">{{ title }}</div>
+  <div class="flex justify-between w-full max-w-[300px] mb-6 text-text-secondary">
     <div class="flex items-center gap-1">
       <span>{{ formatTime(time) }}</span>
     </div>

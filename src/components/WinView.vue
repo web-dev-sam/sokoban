@@ -21,16 +21,16 @@ defineEmits<{
 
 <template>
   <div
-    class="flex flex-col justify-center items-center p-8 font-light outline-none rounded-xl min-h-[300px] min-w-[300px]"
+    class="flex flex-col justify-center items-center p-8 font-light outline-none rounded-xl min-h-[300px] min-w-[300px] bg-bg-primary"
   >
     <div class="text-center">
-      <h2 class="text-3xl text-[#2c3e50] mb-4">You Won!</h2>
+      <h2 class="text-3xl text-text-primary mb-4">You Won!</h2>
 
-      <div class="text-6xl font-light text-[#3498db] mb-2">{{ moves }}</div>
-      <div class="text-sm text-[#666] mb-6">moves</div>
+      <div class="text-6xl font-light text-blue mb-2">{{ moves }}</div>
+      <div class="text-sm text-text-secondary mb-6">moves</div>
 
       <div
-        class="flex justify-between w-full max-w-[250px] mb-6 text-[#666] text-sm"
+        class="flex justify-between w-full max-w-[250px] mb-6 text-text-secondary text-sm"
       >
         <div>
           <div class="flex items-center gap-1 mb-1">
@@ -60,19 +60,19 @@ defineEmits<{
           @click="$emit('restart')"
           class="px-4 py-2 rounded-lg transition-colors duration-200 focus:outline-none cursor-pointer flex items-center gap-1"
         >
-          <Repeat :size="18" />
+          <Repeat :size="18" class="text-text-primary" />
         </button>
 
         <button
           @click="$emit('selectLevel')"
-          class="px-4 py-2 bg-gray-300 rounded-lg transition-colors duration-200 focus:outline-none cursor-pointer"
+          class="px-4 py-2 bg-gray-medium rounded-lg transition-colors duration-200 focus:outline-none cursor-pointer text-text-primary"
         >
           Select <span class="underline">L</span>evel
         </button>
 
         <button
           @click="$emit('next')"
-          class="px-4 py-2 bg-[#3498db] text-white rounded-lg hover:bg-[#2980b9] transition-colors duration-200 focus:outline-none cursor-pointer"
+          class="px-4 py-2 bg-blue text-white rounded-lg hover:bg-blue-dark transition-colors duration-200 focus:outline-none cursor-pointer"
         >
           <span class="underline">N</span>ext
         </button>

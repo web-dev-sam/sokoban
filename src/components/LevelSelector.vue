@@ -46,6 +46,14 @@ function generateLevelSvg(level: string[][]) {
   const cellSize = Math.min(maxSize / Math.max(rows, cols), 6);
   const width = cols * cellSize;
   const height = rows * cellSize;
+  
+  // Get CSS variables for colors
+  const darkColor = getComputedStyle(document.documentElement).getPropertyValue('--color-dark').trim() || '#2c3e50';
+  const yellowColor = getComputedStyle(document.documentElement).getPropertyValue('--color-yellow').trim() || '#ddb61c';
+  const orangeColor = getComputedStyle(document.documentElement).getPropertyValue('--color-orange').trim() || '#e67e22';
+  const greenColor = getComputedStyle(document.documentElement).getPropertyValue('--color-green').trim() || '#27ae60';
+  const blueColor = getComputedStyle(document.documentElement).getPropertyValue('--color-blue').trim() || '#3498db';
+  
   let svgContent = `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">`;
 
   for (let y = 0; y < rows; y++) {
@@ -60,22 +68,22 @@ function generateLevelSvg(level: string[][]) {
 
       switch (cell) {
         case CELL.WALL:
-          fill = "#2c3e50";
+          fill = darkColor;
           break;
         case CELL.TARGET:
-          fill = "#ddb61c";
+          fill = yellowColor;
           isRounded = true;
           isSmall = true;
           break;
         case CELL.BOX:
-          fill = "#e67e22";
+          fill = orangeColor;
           break;
         case CELL.BOX_ON_TARGET:
-          fill = "#27ae60";
+          fill = greenColor;
           break;
         case CELL.PLAYER:
         case CELL.PLAYER_ON_TARGET:
-          fill = "#3498db";
+          fill = blueColor;
           isRounded = true;
           break;
         default:
@@ -102,21 +110,21 @@ function generateLevelSvg(level: string[][]) {
 
 <template>
   <div
-    class="fixed inset-0 bg-[#ddd] bg-opacity-50 flex items-center justify-center z-50"
+    class="fixed inset-0 bg-gray bg-opacity-50 flex items-center justify-center z-50"
   >
     <div
       ref="level-selector-modal"
-      class="bg-white rounded-xl p-6 max-w-4xl max-h-[80vh] overflow-auto"
+      class="bg-bg-primary rounded-xl p-6 max-w-4xl max-h-[80vh] overflow-auto"
     >
       <div class="flex justify-between items-center mb-4">
-        <h2 class="inline-flex items-center text-2xl font-light text-[#2c3e50]">
+        <h2 class="inline-flex items-center text-2xl font-light text-text-primary">
           <template v-if="showingCollections">
             Select a Collection
           </template>
           <template v-else>
             <button 
               @click="goBackToCollections" 
-              class="mr-2 text-[#3498db] hover:text-[#2980b9] cursor-pointer"
+              class="mr-2 text-blue hover:text-blue-dark cursor-pointer"
             >
               <ArrowLeft />
             </button>
@@ -125,7 +133,7 @@ function generateLevelSvg(level: string[][]) {
         </h2>
         <button
           @click="$emit('close')"
-          class="text-[#999] hover:text-[#666] text-2xl cursor-pointer"
+          class="text-gray-dark hover:text-text-secondary text-2xl cursor-pointer"
         >
           ×
         </button>
@@ -137,10 +145,10 @@ function generateLevelSvg(level: string[][]) {
           v-for="(collection, index) in collections"
           :key="index"
           @click="handleCollectionSelect(index)"
-          class="p-4 bg-[#f5f5f5] hover:bg-[#e0e0e0] rounded-lg transition-colors duration-200 flex flex-col items-center cursor-pointer"
+          class="p-4 bg-bg-secondary hover:bg-gray-medium rounded-lg transition-colors duration-200 flex flex-col items-center cursor-pointer"
         >
-          <div class="text-lg font-light mb-2">{{ collection.name }}</div>
-          <div class="text-sm text-[#666]">{{ collection.levels.length }} levels</div>
+          <div class="text-lg font-light mb-2 text-text-primary">{{ collection.name }}</div>
+          <div class="text-sm text-text-secondary">{{ collection.levels.length }} levels</div>
         </button>
       </div>
 
@@ -153,13 +161,13 @@ function generateLevelSvg(level: string[][]) {
           v-for="(levelData, index) in levels"
           :key="index"
           @click="selectLevel(index)"
-          class="p-4 bg-[#f5f5f5] hover:bg-[#e0e0e0] rounded-lg transition-colors duration-200 flex flex-col items-center cursor-pointer"
-          :class="{ 'border-2 border-[#3498db]': index === selectedLevelIndex }"
+          class="p-4 bg-bg-secondary hover:bg-gray-medium rounded-lg transition-colors duration-200 flex flex-col items-center cursor-pointer"
+          :class="{ 'border-2 border-blue': index === selectedLevelIndex }"
         >
-        <div class="text-lg font-light">{{ levelData.title }}</div>
-        <div class="text-sm font-light mb-2 text-[#666]">{{ levelData.author }}</div>
+        <div class="text-lg font-light text-text-primary">{{ levelData.title }}</div>
+        <div class="text-sm font-light mb-2 text-text-secondary">{{ levelData.author }}</div>
           <div
-            class="w-full aspect-square bg-[#fafafa] rounded overflow-hidden flex items-center justify-center"
+            class="w-full aspect-square bg-gray-light rounded overflow-hidden flex items-center justify-center"
             v-html="generateLevelSvg(levelData.level)"
           ></div>
         </button>
