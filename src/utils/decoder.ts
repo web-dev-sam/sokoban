@@ -9,12 +9,13 @@ export type LevelFetchData = {
   l: string;
 }[];
 
-export function decode(data: LevelFetchData): LevelData {
+export function decode(data: LevelFetchData, collection: string): LevelData {
   return data.map((item) => ({
     title: item.t,
     author: item.a,
     email: item.e,
     url: item.u,
+    collection,
     level: decompressString(item.l)
       .split("|")
       .map((row) => row.split("") as Cell[]),

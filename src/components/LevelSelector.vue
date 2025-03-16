@@ -156,7 +156,8 @@ function generateLevelSvg(level: string[][]) {
           class="p-4 bg-[#f5f5f5] hover:bg-[#e0e0e0] rounded-lg transition-colors duration-200 flex flex-col items-center cursor-pointer"
           :class="{ 'border-2 border-[#3498db]': index === selectedLevelIndex }"
         >
-          <div class="text-lg font-light mb-2">{{ levelData.title }}</div>
+        <div class="text-lg font-light">{{ levelData.title }}</div>
+        <div class="text-sm font-light mb-2 text-[#666]">{{ levelData.author }}</div>
           <div
             class="w-full aspect-square bg-[#fafafa] rounded overflow-hidden flex items-center justify-center"
             v-html="generateLevelSvg(levelData.level)"

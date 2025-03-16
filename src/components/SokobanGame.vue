@@ -127,6 +127,9 @@ onKeyStroke(
         break;
       case "L":
       case "l":
+        if (isLevelSelectorShown.value) startTimer();
+        else stopTimer();
+
         isLevelSelectorShown.value = !isLevelSelectorShown.value;
         break;
       case "Escape":

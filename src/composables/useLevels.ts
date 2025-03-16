@@ -5,6 +5,7 @@ export type LevelInfo = {
   title: string
   author: string
   email: string
+  collection: string
   url: string
   level: Level
 };
@@ -13,19 +14,19 @@ export type Collection = {
   name: string;
   levels: LevelInfo[];
 };
-export type CollectionData = Collection[];
 
 export const allLevels = ref<LevelData>([
   {
     title: "Tutorial",
     author: "",
+    collection: "Beginner",
     email: "sam@webry.com",
     url: "https://sokoban.webry.com/",
     level: DEFAULT_LEVEL,
   }
 ]);
 
-export const collections = ref<CollectionData>([
+export const collections = ref<Collection[]>([
   {
     name: "Tutorial",
     levels: [allLevels.value[0]]
