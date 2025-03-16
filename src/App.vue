@@ -16,8 +16,8 @@ const { confettiTrigger } = useConfetti();
 const loadingStatus = ref<"success" | "pending" | "fail">("pending");
 
 const COLLECTIONS = [
-  { name: "Original", path: "/original.json" },
   { name: "Beginner", path: "/beginner.json" },
+  { name: "Original", path: "/original.json" },
 ];
 
 (async () => {
