@@ -3,6 +3,7 @@ import { formatTime } from "@/utils/utils";
 import ClockIcon from "./icons/ClockIcon.vue";
 import StepsIcon from "./icons/StepsIcon.vue";
 import CrownIcon from "./icons/CrownIcon.vue";
+import { Repeat } from "lucide-vue-next";
 
 defineProps<{
   moves: number;
@@ -13,6 +14,8 @@ defineProps<{
 
 defineEmits<{
   (event: "restart"): void;
+  (event: "selectLevel"): void;
+  (event: "next"): void;
 }>();
 </script>
 
@@ -46,20 +49,34 @@ defineEmits<{
             <CrownIcon />
           </div>
           <div class="flex items-center justify-end gap-1">
-            <span>{{
-              recordMoves == null ? "-" : recordMoves
-            }}</span>
+            <span>{{ recordMoves == null ? "-" : recordMoves }}</span>
             <CrownIcon />
           </div>
         </div>
       </div>
 
-      <button
-        @click="$emit('restart')"
-        class="px-6 py-3 bg-[#3498db] text-white rounded-lg hover:bg-[#2980b9] transition-colors duration-200 focus:outline-none cursor-pointer"
-      >
-        Play Again
-      </button>
+      <div class="flex gap-3">
+        <button
+          @click="$emit('restart')"
+          class="px-4 py-2 rounded-lg transition-colors duration-200 focus:outline-none cursor-pointer flex items-center gap-1"
+        >
+          <Repeat :size="18" />
+        </button>
+
+        <button
+          @click="$emit('selectLevel')"
+          class="px-4 py-2 bg-gray-300 rounded-lg transition-colors duration-200 focus:outline-none cursor-pointer"
+        >
+          Select <span class="underline">L</span>evel
+        </button>
+
+        <button
+          @click="$emit('next')"
+          class="px-4 py-2 bg-[#3498db] text-white rounded-lg hover:bg-[#2980b9] transition-colors duration-200 focus:outline-none cursor-pointer"
+        >
+          <span class="underline">N</span>ext
+        </button>
+      </div>
     </div>
   </div>
 </template>

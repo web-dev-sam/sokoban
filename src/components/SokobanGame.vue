@@ -72,74 +72,63 @@ watch(moves, () => {
   }
 });
 
-onKeyStroke(
-  [
-    "ArrowUp",
-    "ArrowDown",
-    "ArrowLeft",
-    "ArrowRight",
-    "r",
-    "R",
-    "u",
-    "U",
-    "l",
-    "L",
-    "W",
-    "w",
-    "A",
-    "a",
-    "S",
-    "s",
-    "D",
-    "d",
-    "Escape",
-  ],
-  (event) => {
-    const allowedInLvlSelector = ["l", "L", "R", "r", "Escape"];
-    const allowedInWinView = ["l", "L", "R", "r"];
-    if (isLevelSelectorShown.value && !allowedInLvlSelector.includes(event.key))
-      return;
-    if (gameStatus.value === "won" && !allowedInWinView.includes(event.key))
-      return;
-
-    switch (event.key) {
-      case "ArrowUp":
-      case "W":
-      case "w":
-        return move(0, -1);
-      case "ArrowDown":
-      case "S":
-      case "s":
-        return move(0, 1);
-      case "ArrowLeft":
-      case "A":
-      case "a":
-        return move(-1, 0);
-      case "ArrowRight":
-      case "D":
-      case "d":
-        return move(1, 0);
-      case "R":
-      case "r":
-        restartGame();
-        break;
-      case "U":
-      case "u":
-        undoMove();
-        break;
-      case "L":
-      case "l":
-        if (isLevelSelectorShown.value) startTimer();
-        else stopTimer();
-
-        isLevelSelectorShown.value = !isLevelSelectorShown.value;
-        break;
-      case "Escape":
-        isLevelSelectorShown.value = false;
-        break;
-    }
+onKeyStroke(true, (event) => {
+  if (isLevelSelectorShown.value) {
+    if (event.key.toLowerCase() === "d" || event.key === "ArrowRight")
+      currentLevelIndex.value++;
+    else if (event.key.toLowerCase() === "a" || event.key === "ArrowLeft")
+      currentLevelIndex.value--;
   }
-);
+
+  if (gameStatus.value === "won") {
+    if (event.key.toLowerCase() === "n" || event.key === "Enter")
+      selectLevel(currentLevelIndex.value + 1);
+  }
+
+  const allowedInLvlSelector = ["l", "L", "R", "r", "Escape"];
+  const allowedInWinView = ["l", "L", "R", "r"];
+  if (isLevelSelectorShown.value && !allowedInLvlSelector.includes(event.key))
+    return;
+  if (gameStatus.value === "won" && !allowedInWinView.includes(event.key))
+    return;
+
+  switch (event.key) {
+    case "ArrowUp":
+    case "W":
+    case "w":
+      return move(0, -1);
+    case "ArrowDown":
+    case "S":
+    case "s":
+      return move(0, 1);
+    case "ArrowLeft":
+    case "A":
+    case "a":
+      return move(-1, 0);
+    case "ArrowRight":
+    case "D":
+    case "d":
+      return move(1, 0);
+    case "R":
+    case "r":
+      restartGame();
+      break;
+    case "U":
+    case "u":
+      undoMove();
+      break;
+    case "L":
+    case "l":
+      if (isLevelSelectorShown.value) startTimer();
+      else stopTimer();
+
+      isLevelSelectorShown.value = !isLevelSelectorShown.value;
+      break;
+    case "Escape":
+      isLevelSelectorShown.value = false;
+      break;
+  }
+});
 
 function move(dx: number, dy: number) {
   if (gameStatus.value === "won") return;
@@ -249,6 +238,8 @@ function selectLevel(index: number) {
     :record-moves="ownRecord.moves"
     :record-time="ownRecord.time"
     @restart="restartGame"
+    @selectLevel="isLevelSelectorShown = true"
+    @next="selectLevel(currentLevelIndex + 1)"
   />
 
   <div
