@@ -25,7 +25,7 @@ const { time, startTimer, stopTimer, restartTimer } = useTimer();
 const { confetti } = useConfetti();
 const ownRecord = useLocalStorage(
   "own-record",
-  { moves: Infinity, time: Infinity },
+  { moves: null as number | null, time: null as number | null },
   { mergeDefaults: true }
 );
 const lastLevel = useLocalStorage(
@@ -65,6 +65,17 @@ watch(moves, () => {
     gameStatus.value = "won";
     confetti();
     stopTimer();
+    const currentRecord = ownRecord.value;
+    if (currentRecord.moves == null || currentRecord.time == null) {
+      ownRecord.value = { moves: moves.value, time: time.value };
+    } else {
+      const isBetterTime = time.value < currentRecord.time;
+      const isBetterMoves = moves.value < currentRecord.moves;
+      ownRecord.value = {
+        moves: isBetterMoves ? moves.value : ownRecord.value.moves,
+        time: isBetterTime ? time.value : ownRecord.value.time,
+      };
+    }
   }
 });
 

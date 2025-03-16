@@ -7,8 +7,8 @@ import CrownIcon from "./icons/CrownIcon.vue";
 defineProps<{
   moves: number;
   time: number;
-  recordMoves: number;
-  recordTime: number;
+  recordMoves: number | null;
+  recordTime: number | null;
 }>();
 
 defineEmits<{
@@ -46,7 +46,9 @@ defineEmits<{
             <CrownIcon />
           </div>
           <div class="flex items-center justify-end gap-1">
-            <span>{{ !isFinite(recordMoves) || recordMoves == null ? "-" : recordMoves }}</span>
+            <span>{{
+              recordMoves == null ? "-" : recordMoves
+            }}</span>
             <CrownIcon />
           </div>
         </div>

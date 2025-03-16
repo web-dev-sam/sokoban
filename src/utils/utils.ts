@@ -47,8 +47,8 @@ export function isLevelDone(level: Level) {
 }
 
 
-export function formatTime(time: number) {
-  if (!isFinite(time) || isNaN(time) || time == null) return "--:--";
+export function formatTime(time: number | null) {
+  if (time == null) return "--:--";
 
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
