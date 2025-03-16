@@ -80,6 +80,14 @@ onKeyStroke(
     "U",
     "l",
     "L",
+    "W",
+    "w",
+    "A",
+    "a",
+    "S",
+    "s",
+    "D",
+    "d",
     "Escape",
   ],
   (event) => {
@@ -92,12 +100,20 @@ onKeyStroke(
 
     switch (event.key) {
       case "ArrowUp":
+      case "W":
+      case "w":
         return move(0, -1);
       case "ArrowDown":
+      case "S":
+      case "s":
         return move(0, 1);
       case "ArrowLeft":
+      case "A":
+      case "a":
         return move(-1, 0);
       case "ArrowRight":
+      case "D":
+      case "d":
         return move(1, 0);
       case "R":
       case "r":
@@ -183,7 +199,11 @@ function undoMove() {
 }
 
 function restartGame() {
-  const { level: newLevel, playerPos, title: newTitle } = createLevel(currentLevelIndex.value);
+  const {
+    level: newLevel,
+    playerPos,
+    title: newTitle,
+  } = createLevel(currentLevelIndex.value);
   level.value = newLevel;
   playerPosition.value = playerPos;
   title.value = newTitle;
