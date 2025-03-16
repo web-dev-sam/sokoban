@@ -4,7 +4,6 @@ import { onKeyStroke, useLocalStorage } from "@vueuse/core";
 import {
   CELL,
   deepCopy,
-  DEFAULT_LEVEL,
   findPlayerInLevel,
   isLevelDone,
   isPosOutOfBounds,
@@ -28,17 +27,9 @@ const ownRecord = useLocalStorage(
   { moves: null as number | null, time: null as number | null },
   { mergeDefaults: true }
 );
-const lastLevel = useLocalStorage(
-  "last-level",
-  {
-    index: 0,
-    gameState: { level: DEFAULT_LEVEL, moveCount: 0, time: 0 } as GameState,
-  },
-  { mergeDefaults: true }
-);
 
 const isLevelSelectorShown = ref(false);
-const currentLevelIndex = ref(lastLevel.value.index);
+const currentLevelIndex = ref(0);
 const level = ref<Level>([]);
 const title = ref("");
 const playerPosition = ref<LevelPosition>({ x: 0, y: 0 });

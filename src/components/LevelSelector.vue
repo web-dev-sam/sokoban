@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { levels } from "@/composables/useLevels";
+import { levels, collections, selectedCollectionIndex, selectCollection } from "@/composables/useLevels";
 import { onClickOutside } from "@vueuse/core";
-import { useTemplateRef } from "vue";
+import { ref, useTemplateRef } from "vue";
+import { ArrowLeft } from "lucide-vue-next"
 import { CELL } from "@/utils/utils";
 
 defineProps<{
@@ -18,8 +19,19 @@ onClickOutside(lvlSelectorModalRef, () => {
   emit("close");
 });
 
+const showingCollections = ref(true);
+
 function selectLevel(index: number) {
   emit("select", index);
+}
+
+function handleCollectionSelect(index: number) {
+  selectCollection(index);
+  showingCollections.value = false;
+}
+
+function goBackToCollections() {
+  showingCollections.value = true;
 }
 
 /**
@@ -97,7 +109,20 @@ function generateLevelSvg(level: string[][]) {
       class="bg-white rounded-xl p-6 max-w-4xl max-h-[80vh] overflow-auto"
     >
       <div class="flex justify-between items-center mb-4">
-        <h2 class="text-2xl font-light text-[#2c3e50]">Select a Level</h2>
+        <h2 class="inline-flex items-center text-2xl font-light text-[#2c3e50]">
+          <template v-if="showingCollections">
+            Select a Collection
+          </template>
+          <template v-else>
+            <button 
+              @click="goBackToCollections" 
+              class="mr-2 text-[#3498db] hover:text-[#2980b9] cursor-pointer"
+            >
+              <ArrowLeft />
+            </button>
+            {{ collections[selectedCollectionIndex].name }}
+          </template>
+        </h2>
         <button
           @click="$emit('close')"
           class="text-[#999] hover:text-[#666] text-2xl cursor-pointer"
@@ -105,7 +130,23 @@ function generateLevelSvg(level: string[][]) {
           ×
         </button>
       </div>
+
+      <!-- Collections View -->
+      <div v-if="showingCollections" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <button
+          v-for="(collection, index) in collections"
+          :key="index"
+          @click="handleCollectionSelect(index)"
+          class="p-4 bg-[#f5f5f5] hover:bg-[#e0e0e0] rounded-lg transition-colors duration-200 flex flex-col items-center cursor-pointer"
+        >
+          <div class="text-lg font-light mb-2">{{ collection.name }}</div>
+          <div class="text-sm text-[#666]">{{ collection.levels.length }} levels</div>
+        </button>
+      </div>
+
+      <!-- Levels View -->
       <div
+        v-else
         class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
       >
         <button
@@ -115,7 +156,7 @@ function generateLevelSvg(level: string[][]) {
           class="p-4 bg-[#f5f5f5] hover:bg-[#e0e0e0] rounded-lg transition-colors duration-200 flex flex-col items-center cursor-pointer"
           :class="{ 'border-2 border-[#3498db]': index === selectedLevelIndex }"
         >
-          <div class="text-lg font-light mb-2">{{ levels[index].title }}</div>
+          <div class="text-lg font-light mb-2">{{ levelData.title }}</div>
           <div
             class="w-full aspect-square bg-[#fafafa] rounded overflow-hidden flex items-center justify-center"
             v-html="generateLevelSvg(levelData.level)"
