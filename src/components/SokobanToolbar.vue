@@ -3,7 +3,7 @@ import MoveIcon from "./icons/MoveIcon.vue";
 </script>
 
 <template>
-  <div class="flex gap-4 mt-6 text-xs text-[#999] font-light">
+  <div class="flex gap-4 mt-6 text-sm md:text-base text-[#999] font-light">
     <div class="flex items-center">
       <span
         class="inline-flex items-center justify-center px-1 py-0.5 bg-[#f1f1f1] rounded mr-1.5 text-[#666] font-light"

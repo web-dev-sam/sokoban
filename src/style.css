@@ -9,3 +9,8 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
+
+::selection {
+  background: #3498db;
+  color: white;
+}

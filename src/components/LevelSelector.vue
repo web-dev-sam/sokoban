@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { levels } from "@/composables/useLevels";
 import { onClickOutside } from "@vueuse/core";
-import { useTemplateRef } from "vue";
+import { useTemplateRef, computed } from "vue";
+import { CELL } from "@/utils/utils";
 
 defineProps<{
   selectedLevelIndex: number;
@@ -19,6 +20,71 @@ onClickOutside(lvlSelectorModalRef, () => {
 
 function selectLevel(index: number) {
   emit("select", index);
+}
+
+/**
+ * Generating SVG to improve performance
+ */
+function generateLevelSvg(level: string[][]) {
+  if (!level || !level.length) return "";
+
+  const rows = level.length;
+  const cols = level[0].length;
+  const maxSize = 200;
+  const cellSize = Math.min(maxSize / Math.max(rows, cols), 6);
+  const width = cols * cellSize;
+  const height = rows * cellSize;
+  let svgContent = `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">`;
+
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      const cell = level[y][x];
+      const cellX = x * cellSize;
+      const cellY = y * cellSize;
+
+      let fill = "";
+      let isRounded = false;
+      let isSmall = false;
+
+      switch (cell) {
+        case CELL.WALL:
+          fill = "#2c3e50";
+          break;
+        case CELL.TARGET:
+          fill = "#ddb61c";
+          isRounded = true;
+          isSmall = true;
+          break;
+        case CELL.BOX:
+          fill = "#e67e22";
+          break;
+        case CELL.BOX_ON_TARGET:
+          fill = "#27ae60";
+          break;
+        case CELL.PLAYER:
+        case CELL.PLAYER_ON_TARGET:
+          fill = "#3498db";
+          isRounded = true;
+          break;
+        default:
+          continue;
+      }
+
+      if (fill) {
+        if (isRounded) {
+          const cx = cellX + cellSize / 2;
+          const cy = cellY + cellSize / 2;
+          const radius = isSmall ? cellSize * 0.15 : cellSize / 2;
+          svgContent += `<circle cx="${cx}" cy="${cy}" r="${radius}" fill="${fill}" />`;
+        } else {
+          svgContent += `<rect x="${cellX}" y="${cellY}" width="${cellSize}" height="${cellSize}" fill="${fill}" />`;
+        }
+      }
+    }
+  }
+
+  svgContent += "</svg>";
+  return svgContent;
 }
 </script>
 
@@ -52,24 +118,8 @@ function selectLevel(index: number) {
           <div class="text-lg font-light mb-2">Level {{ index + 1 }}</div>
           <div
             class="w-full aspect-square bg-[#fafafa] rounded overflow-hidden flex items-center justify-center"
-          >
-            <div class="transform scale-[0.4] origin-center">
-              <div v-for="(row, y) in levelData.level" :key="y" class="flex">
-                <div
-                  v-for="(cell, x) in row"
-                  :key="x"
-                  class="w-6 h-6 rounded"
-                  :class="{
-                    'bg-[#2c3e50]': cell === '#',
-                    'bg-[#ddb61c] rounded-full scale-[30%]': cell === '.',
-                    'bg-[#e67e22]': cell === '$',
-                    'bg-[#27ae60]': cell === '*',
-                    'bg-[#3498db] rounded-full': cell === '@' || cell === '+',
-                  }"
-                ></div>
-              </div>
-            </div>
-          </div>
+            v-html="generateLevelSvg(levelData.level)"
+          ></div>
         </button>
       </div>
     </div>

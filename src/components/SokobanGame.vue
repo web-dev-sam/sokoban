@@ -74,7 +74,7 @@ onKeyStroke(
     "U",
     "l",
     "L",
-    "Escape"
+    "Escape",
   ],
   (event) => {
     const allowedInLvlSelector = ["l", "L", "R", "r", "Escape"];
@@ -202,7 +202,7 @@ function selectLevel(index: number) {
 
 <template>
   <LevelSelector
-    v-if="isLevelSelectorShown"
+    v-show="isLevelSelectorShown"
     :selected-level-index="currentLevelIndex"
     @select="selectLevel"
     @close="isLevelSelectorShown = false"
