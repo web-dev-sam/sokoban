@@ -244,7 +244,7 @@ function selectLevel(index: number) {
 
   <div
     v-else
-    class="flex flex-col justify-center items-center p-8 outline-none rounded-xl bg-bg-primary"
+    class="flex flex-col justify-center items-center p-4 sm:p-8 outline-none rounded-xl overflow-hidden"
     tabindex="0"
     ref="boardRef"
   >

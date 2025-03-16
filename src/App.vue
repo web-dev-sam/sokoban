@@ -17,7 +17,11 @@ const loadingStatus = ref<"success" | "pending" | "fail">("pending");
 
 const COLLECTIONS = [
   { name: "Beginner", path: "/beginner.json" },
+  { name: "Beginner 2", path: "/beginners2.json" },
   { name: "Original", path: "/original.json" },
+  { name: "DrFogh", path: "/drfogh.json" },
+  { name: "Thinking Rabbit", path: "/thinkingrabbit.json" },
+  { name: "Howard Abed", path: "/howardabed.json" },
 ];
 
 (async () => {

@@ -27,13 +27,7 @@ function parseSokobanFile(fileContent: string): LevelData[] {
   }
 
   // Extract levels
-  const levels: LevelData[] = [{
-    t: "Tutorial",
-    e: "sam@webry.com",
-    a: "",
-    u: "https://sokoban.webry.com/",
-    l: "#####|#...#|#$$$#|#@  #|#####"
-  }];
+  const levels: LevelData[] = [];
   let currentLevel: string[] = [];
   let inLevel = false;
   let currentTitle = '';
@@ -189,1639 +183,2190 @@ function processLevel(levelLines: string[]): string | null {
 
 
 // Example usage
-const fileContent = `Collection: Original Plus Extra
-Author: Thinking Rabbit
-Copyright: Thinking Rabbit
-Date: 1988
-Last change: 2017-08-30
+const fileContent = `
+  ####
+###  ####
+#     $ #
+# # $#$ #
+# ...#@ #
+#########
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #3
+Comment: added a box
 
-The original levels by Thinking Rabbit for the first english version
- of Sokoban, Soko-Ban published by Spectrum Holobyte in 1988.
-The original levels came from Thinking Rabbits Sokoban(1982), 
-Sokoban2(1984) and a few from SokobanMSX(1984)
-Some of the levels were modified slightly by Spectrum Holobyte for 
-various reasons.
-Some of the levels were modified when the levelset were copied and 
-republished for the XSokoban player, first published early in the 90es.
-Noticeably 6 levels (12, 20, 25, 37, 42 and 50) were modified. Some 
-with conciderable influence on gameplay, some with practically no influenze.
-Try both versions for comparision.
-
-XSokoban contained 90 levels, the original 50 levels + 40 more levels, 
-usually refered to as Original Extra, but not made by Thinking Rabbit.
-
-In the creation of the collection "Scott Lindhurst-MacSokoban", a 
-compilation of more collections, Extra 77 was replaced by a much 
-easier level. In this collection named Extra 77SL.
-
-For further reading, try
-http://Sokoban-jd.blogspot.dk/2014/05/the-original-collection.html
-http://origsoko.blogspot.dk/
-http://sokoban.dk/the-original-collection-91/
-
-----#####
-----#---#
-----#$--#
---###--$##
---#--$-$-#
-###-#-##-#---######
-#---#-##-#####--..#
-#-$--$----------..#
-#####-###-#@##--..#
-----#-----#########
-----#######
-Title: 1
-Comment: Sokoban #1. Arranged.
-
-############
-#..--#-----###
-#..--#-$--$--#
-#..--#$####--#
-#..----@-##--#
-#..--#-#--$-##
-######-##$-$-#
---#-$--$-$-$-#
---#----#-----#
---############
-Title: 2
-Author: Katsuhiko Sadamoto.
-Comment: Sokoban #2
-
---------########
---------#-----@#
---------#-$#$-##
---------#-$--$#
---------##$-$-#
-#########-$-#-###
-#....--##-$--$--#
-##...----$--$---#
-#....--##########
-########
-Title: 3
-Comment: Sokoban #3
-
------------########
------------#--....#
-############--....#
-#----#--$-$---....#
-#-$$$#$--$-#--....#
-#--$-----$-#--....#
-#-$$-#$-$-$########
-#--$-#-----#
-##-#########
-#----#----##
-#-----$---##
-#--$$#$$--@#
-#----#----##
+##### #####
+#   ###   #
+#  $ $ $#@#
+#  #...   #
 ###########
-Title: 4
-Comment: Sokoban #4. Arranged.
-
---------#####
---------#---#####
---------#-#$##--#
---------#-----$-#
-#########-###---#
-#....--##-$--$###
-#....----$-$$-##
-#....--##$--$-@#
-#########--$--##
---------#-$-$--#
---------###-##-#
-----------#----#
-----------######
-Title: 5
-Comment: Sokoban #5.
-
-######--###
-#..--#-##@##
-#..--###---#
-#..-----$$-#
-#..--#-#-$-#
-#..###-#-$-#
-####-$-#$--#
----#--$#-$-#
----#-$--$--#
----#--##---#
----#########
-Title: 6
-Comment: Sokoban #6
-
--------#####
--#######---##
-##-#-@##-$$-#
-#----$------#
-#--$--###---#
-###-#####$###
-#-$--###-..#
-#-$-$-$-...#
-#----###...#
-#-$$-#-#...#
-#--###-#####
-####
-Title: 7
-Comment: Sokoban #7. Arranged.
-
---####
---#--###########
---#----$---$-$-#
---#-$#-$-#--$--#
---#--$-$--#----#
-###-$#-#--####-#
-#@#$-$-$--##---#
-#----$-#$#---#-#
-#---$----$-$-$-#
-#####--#########
---#------#
---#------#
---#......#
---#......#
---#......#
---########
-Title: 8
-Comment: Sokoban #8. Arranged. Error? Easier solution.
-
-----------#######
-----------#--...#
-------#####--...#
-------#------.-.#
-------#--##--...#
-------##-##--...#
------###-########
------#-$$$-##
--#####--$-$-#####
-##---#$-$---#---#
-#@-$--$----$--$-#
-######-$$-$-#####
------#------#
------########
-Title: 9
-Comment: Sokoban #9. Arranged. Minus one box.
-
--###--#############
-##@####-------#---#
-#-$$---$$--$-$-...#
-#--$$$#----$--#...#
-#-$---#-$$-$$-#...#
-###---#--$----#...#
-#-----#-$-$-$-#...#
-#----######-###...#
-##-#--#--$-$--#...#
-#--##-#-$$-$-$##..#
-#-..#-#--$------#.#
-#-..#-#-$$$-$$$-#.#
-#####-#-------#-#.#
-----#-#########-#.#
-----#-----------#.#
-----###############
-Title: 10
-Comment: Sokoban #10. Arranged. Minus two boxes.
-
-----------####
------####-#--#
----###-@###$-#
---##------$--#
--##--$-$$##-##
--#--#$##-----#
--#-#-$-$$-#-###
--#---$-#--#-$-#####
-####----#--$$-#---#
-####-##-$---------#
-#.----###--########
-#..-..#-####
-#...#.#
-#.....#
-#######
-Title: 11
-Comment: Sokoban2 #1
-
-################
-#--------------#
-#-#-######-----#
-#-#--$-$-$-$#--#
-#-#---$@$---##-##
-#-#-#$-$-$###...#
-#-#---$-$--##...#
-#-###$$$-$-##...#
-#-----#-##-##...#
-#####---##-##...#
-----#####-----###
---------#-----#
---------#######
-Title: 12
-Author: Hachiro Kajiwara
-Comment: Sokoban2 #4
-
-################
-#--------------#
-#-#-######-----#
-#-#--$-$-$-$#--#
-#-#---$@$---##-##
-#-#--$-$-$###...#
-#-#---$-$--##...#
-#-###$$$-$-##...#
-#-----#-##-##...#
-#####---##-##...#
-----#####-----###
---------#-----#
---------#######
-Title: 12X
-Author: Hachiro Kajiwara
-Comment: Sokoban2 #4. The wall at E6( E'th collumn, 6th row) was 
-removed in the XSokoban levelset.
-
----#########
---##---##--######
-###-----#--#----###
-#--$-#$-#--#--...-#
-#-#-$#@$##-#-#.#.-#
-#--#-#$--#----.-.-#
-#-$----$-#-#-#.#.-#
-#---##--##$-$-.-.-#
-#-$-#---#--#$#.#.-#
-##-$--$---$--$...-#
--#$-######----##--#
--#--#----##########
--####
-Title: 13
-Author: Akira Yotsuji
-Comment: Sokoban2 #3. Arranged. Minus two boxes.
-
--------#######
--#######-----#
--#-----#-$@$-#
--#$$-#---#########
--#-###......##---#
--#---$......##-#-#
--#-###......-----#
-##---####-###-#$##
-#--#$---#--$--#-#
-#--$-$$$--#-$##-#
-#---$-$-###$$-#-#
-#####-----$---#-#
-----###-###---#-#
-------#-----#---#
-------########--#
--------------####
-Title: 14
-Comment: Sokoban2 #7.
-
----########
----#---#--#
----#--$---#
--###-#$---####
--#--$--##$---#
--#--#-@-$-#-$#
--#--#------$-####
--##-####$##-----#
--#-$#.....#-#---#
--#--$..**.-$#-###
-##--#.....#---#
-#---###-#######
-#-$$--#--#
-#--#-----#
-######---#
------#####
-Title: 15
-Comment: Sokoban2 #5. Arranged.
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #6
+Comment: stoned many floors, reaganged boxes
 
 #####
-#---##
-#----#--####
-#-$--####--#
-#--$$-$---$#
-###@-#$----##
--#--##--$-$-##
--#-$--##-##-.#
--#--#$##$--#.#
--###---$..##.#
---#----#.*...#
---#-$$-#.....#
---#--#########
---#--#
---####
-Title: 16
-Comment: Sokoban2 #6.
+#   ##
+#@$  #
+## $ ####
+ ###$.  #
+  #  .# #
+  #  .  #
+  #######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #12
+Comment: added a box
 
----##########
----#..--#---#
----#..------#
----#..--#--####
---#######--#--##
---#------------#
---#--#--##--#--#
-####-##--####-##
-#--$--#####-#--#
-#-#-$--$--#-$--#
-#-@$--$---#---##
-####-##-#######
----#----#
----######
-Title: 17
-Comment: SokobanMSX #21.
+#####
+# + #
+#.*.#
+#$$$##
+#    #
+#    #
+######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #17
+Comment: added a box
 
------###########
------#--.--#---#
------#-#.----@-#
--#####-##..#-####
-##--#-..###-----###
-#-$-#...---$-#--$-#
-#----..-##--##-##-#
-####$##$#-$-#---#-#
---##-#----#$-$$-#-#
---#--$-#-#--#-$##-#
---#---------------#
---#--###########--#
---####---------####
-Title: 18
-Comment: Sokoban2 #8. Arranged. Minus two boxes.
+ ######
+ #    #
+##... #
+# $$$ #
+#@  ###
+#####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #25
+Comment: stoned 2 floors, rearranged boxes
 
---######
---#---@####
-#####-$---#
-#---##----####
-#-$-#--##----#
-#-$-#--#####-#
-##-$--$----#-#
-##-$-$-###-#-#
-##-#--$--#-#-#
-##-#-#$#---#-#
-##-###---#-#-######
-#--$--####-#-#....#
-#----$----$---..#.#
-####$--$#-$---....#
-#-------#--##-....#
-###################
-Title: 19
-Comment: Sokoban2 #9. Arranged. Minus five boxes.
+  ####
+###  ####
+#  $    #
+#@$***. #
+#  .    #
+#########
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #34
+Comment: added a box
 
-----##########
-#####--------####
-#-----#---$--#@-#
-#-#######$####--###
-#-#----##-#--#$-..#
-#-#-$--$--#--#--#.#
-#-#-$--#-----#$-..#
-#-#--###-##-----#.#
-#-###--#--#--#$-..#
-#-#----#-$####--#.#
-#-#$---$--$--#*-..#
-#----$-#-$-$-#--#.#
-####-$###----#*-..#
----#----$$-###....#
----#------##-######
----########
-Title: 20
-Comment: Sokoban2 #10. Arranged and rotated. Minus nine(!) boxes.
+  #######
+###     #
+# $ $   #
+# ### #####
+#   ..*.$ #
+#   ### @ #
+##### #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #47
+Comment: added 2 boxes
 
-----##########
-#####--------####
-#-----#---$--#@-#
-#-#######$####--###
-#-#----##-#--#$-..#
-#-#-$-----#--#--#.#
-#-#-$--#-----#$-..#
-#-#--###-##-----#.#
-#-###--#--#--#$-..#
-#-#----#--####--#.#
-#-#$---$--$--#$-..#
-#----$-#-$-$-#--#.#
-####-$###----#$-..#
----#----$$-###....#
----#------##-######
----########
-Title: 20X
-Comment: Sokoban2 #10. Arranged and rotated. Minus nine(!) boxes. In 
-the XSokoban levelset the boxes at H6 and J10 and the goals at O11 and 
-O13 were removed.
+######
+# @  #
+#  # #
+# $$ #
+# $ ##
+### #
+ #. ####
+ #.    #
+ #.    #
+ #######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #49
+Comment: rearranged boxes and goals, stoned 2 floors
+
+ #####
+##. .##
+# $$$ #
+# ... #
+# $ $ #
+## @ ##
+ #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #53
+Comment: change wall for a box, moved 2 goals
+
+############
+#          #
+# #######  ##
+# #         #
+# #  $   #  #
+# $$$#####  #
+###@ #  #...#
+  ####  #  .#
+        #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #59
+Comment: added a box, stoned 2 floors
+
+   ###
+   #@#
+####$####
+#   .   #
+# ## ## #
+# #   # #
+# #   # #
+# #   # #
+# ##$## #
+#  $ $  #
+###...###
+  # * #
+  #   #
+  #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #66
+Comment: added 2 boxes
+
+####  ####
+#  ####  #
+#  #..#  #
+# $# .  $##
+#  $ .#$  #
+#  ##.# $ #
+#     #  @#
+###########
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #69
+Comment: added 2 boxes, rearranged goals
+
+#####
+#   ####
+#      #
+# $ $$@#
+##$##  #
+ # #####
+##.. #
+# .. #
+#    #
+######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #70
+Comment: redrraw map
+
+###########
+#     #   ###
+# $ $ # .   #
+# ## ###*## #
+# #     $ # #
+# #   #   # #
+# ###### ## #
+#       . . #
+####### @ ###
+      #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #71
+Comment: extension, added 2 boxes
+Date: 2010.10.14
+
+ #######
+##     #
+#  $ $ #
+# $ $ $#
+## ### ##
+ #   ...#
+ ##. @ .#
+  #######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #78
+Comment: stoned 4 floors, rearranged goals
+
+######
+#    ##
+#  $  #
+##$$$ #
+ # #  #
+ # ## ##
+ # $...#
+ #  . .#
+ # @####
+ ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #83
+Comment: added a box, stoned 2 floors
+
+########
+#  ... #
+#  ### #
+#  # $ ##
+## #@$  #
+ # # $  #
+ # ###.#####
+ #       $ #
+ #   ###   #
+ ##### #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #84
+Comment: added a box
+
+     ####
+ # ###  #
+ # #    #
+ # #$ #.#
+ # #  # #
+ # #$ #.# #
+   #  # # #
+####$ #.# #
+#     $.# #
+# @ #  ## #
+########
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #88
+Comment: reduction map, added a box
+
+########
+#  @   #
+# $  $ #
+##$## ##
+# $..$ #
+#  .. .#
+########
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #90
+Comment: added a box, stoned 4 floors
+
+  ####
+  #  ##########
+  #     $   $ #
+  #  ######.# #
+####  $   ... #
+#   $$# ###.# #
+#   # @ # #   #
+######### #  ##
+          #  #
+          ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #92
+Comment: added 2 boxes, major changes
+
+     #
+ ##########
+ #   #    #
+ # $ # $  #
+ #  *.*   #
+####.@.####
+ #  *.*  #
+ # $ # $ #
+ #   #   #
+ #########
+     #
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #93 a
+Comment: stoned many floors
+
+ #########
+###  ##  ##
+# $  .  $##
+#  $ # $  #
+## #*.*   #
+##.#.@.#.##
+#   *.*# ##
+#  $ # $  #
+##$  .  $ #
+##  ##  ###
+ #########
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #93 b
+Comment: added 4 boxes, major changes
+
+##### #####
+#   ###   #
+#  *. .*  #
+###$ . $###
+  # $*$ #
+###$ . $###
+#  *.@.*  #
+#   ###   #
+##### #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #105
+Comment: added 3 boxes, stoned many floors
+
+  #######
+# #     #
+# # # # #
+  # $   #
+###$### #
+#   ### #
+# $  ##.#
+## $  #.#
+ ## $  .#
+# ## $#.#
+## ## #.#
+### # @.#
+### #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #109
+Comment: added a box
+
+  ####
+  #  #
+  # $####
+###. .  #
+# $$. $ #
+#  . .###
+####$ #
+   # @#
+   ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #110
+Comment: change wall for a box
+
+######
+#    ####
+#    ...#
+#    ...#
+###### ##
+  #  # #
+  # $$ ##
+  #  $  #
+  #@$$  #
+  ## $# #
+   #    #
+   ######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #111
+Comment: stoned 2 floors
+
+    #####
+#####   ###
+#     #   #
+#  #..... #
+## ### # ##
+ #$$ $$$ #
+ #   @ ###
+ #######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #115
+Comment: stoned 2 floors
+
+ ####
+ #  ######
+ #  $    ##
+##..####  #
+#  .   ## #
+#...#$  #@#
+# ## $$ $ #
+#  $    ###
+####  ###
+   ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #117
+Comment: added a box, stoned some floors
+
+ ##########
+##....... #
+# $$$$$$$@#
+#   # # # #
+#   #     #
+###########
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #126
+Comment: reduction map
+
+########
+#   #  ###
+#   $ $. #
+### #  . #
+ ##$###.##
+ #  $  . #
+ # $## . #
+ #@ ######
+ ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #127
+Comment: added a box, major changes
+Date: 2010.10.14
+
+  #########
+### @ #   #
+# * * * . #
+#   $ #   #
+####*## ###
+ #       #
+ #   #   #
+ #########
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #129
+Comment: moved a goal, some changes
+
+        ####
+#########  #
+#   ## $   #
+#  $   ##  #
+### #...# ##
+  # #.$.#$##
+  # #.$ #  #
+  #   $    #
+  # @#######
+  ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #134
+Comment: added 2 boxes
+
+ ####
+ #  ####
+##  ...#
+#   ...#
+#   # ##
+#   #  #### ####
+##### $   ###  #
+    #  ##$ $   #
+   ###     $$  #
+   # $  ## @ ###
+   #    ######
+   ######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #139
+Comment: stoned a floor
+
+   ####
+ ###  #####
+ # $$ #   #
+ # $ ...$$##
+ # .* #* $ #
+###.#   .  #
+#  .   #.###
+# $ *# *. #
+##$$... $ #
+ #   # $$ #
+ #####@ ###
+     ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #144
+Comment: rearranged 4 goals/boxes
+
+    ####
+   ##@ #
+  ##   ##
+###.$$$.##
+#  $...$ ##
+#  $...$  #
+## $.*.$  #
+ ##.$$$.###
+  ##   ##
+   #  ##
+   ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #145 a
+Comment: change wall for box, added 4 walls
+
+   #####
+   #   #
+  ##   ##
+###.$$$.###
+# .$...$$ #
+#  $.#.$  #
+# $$.+.$. #
+###.$$$.###
+  ##   ##
+   #   #
+   #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #145 b
+Comment: added 2 boxes
+
+################################################
+#                      #                       #
+# #################### #  #################### #
+# #                  # #  #                  # #
+# # ################ # # $# ################ # #
+# # #              # # #  # #              # # #
+# # # ############ # # # $# # ############ # # #
+# # # #          # # # #  # # #          # # # #
+# # # # ######## # # # # $# # # ######## # # # #
+# # # #        # # # # #  # # # #        # # # #
+# # # ######## # # # # # $# # # # ######## # # #
+# # #          # # # # #  # # # #          # # #
+# # ############ # # # # $# # # ############ # #
+# #              # # # #  # # #              # #
+# ################ # #*##$# # ################ #
+#                  #  ..... #                  #
+######################.##.######################
+#                  # ...+.  #                  #
+# ################ # #$##*# # ################ #
+# #              # # #  # # # #              # #
+# # ############ # # #$ # # # # ############ # #
+# # #          # # # #  # # # # #          # # #
+# # # ######## # # # #$ # # # # # ######## # # #
+# # # #        # # # #  # # # # #        # # # #
+# # # # ######## # # #$ # # # # ######## # # # #
+# # # #          # # #  # # # #          # # # #
+# # # ############ # #$ # # # ############ # # #
+# # #              # #  # # #              # # #
+# # ################ #$ # # ################ # #
+# #                  #  # #                  # #
+# ####################  # #################### #
+#                       #                      #
+################################################
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #154 Take the long way home
+Comment: extension. Revised 27-1-2020
+
+      ####              ####
+##### #  ################  ##
+#   ###$        .           #
+# $      #################  #
+# $ ####   $ #  ####  ####.##
+### # .#*# # #     #     # #
+  # #$.#   . # ##  # ##  # #
+ ## ...### ###  # ##  # # $#
+ #   # # #      #     # #  #
+ #   # ###  #####  #### #  #
+ ##### $ #####  #######.#####
+ #   # # #  #               #
+## # #   #  #  #######  ##  #
+#   *#########  #    ##### ##
+# #$            # $        #
+# @ #########  ##########  #
+#####       ####        ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban #155 The Dungeon
+Comment: added 10 boxes, small changes. Revised 27-1-2020
+
+#####
+#   #
+#   ##
+#$$$@#
+#... #
+######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #10
+Comment: stoned 2 floors
+
+ #####
+ #   #
+ # # #
+##*..#
+# $ ##
+# $  #
+# @  #
+######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #17
+Comment: rearranged goals/boxes
+
+ ####
+ #  ###
+ #$.  #
+ # .# #
+##$.  #
+# $ ###
+# @ #
+#####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #20
+Comment: moved a goal
+
+     #####
+######   #
+#  @## # #
+# $$$    #
+### ###$###
+#        .##
+#   ###... #
+#####    # #
+    # #  # #
+    # #### #
+    #      #
+    ########
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #24
+Comment: added 2 boxes
+
+#######
+#  +  #
+# *$* #
+#. # .#
+#  #  #
+#  #  #
+# $#$ #
+#  #  #
+#######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #27
+Comment: reduction map
+
+######
+#    #
+# ##$###
+# # $  #
+# ..*. #
+##  $  #
+ #@# ###
+ #   #
+ #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #29 a
+Comment: extension, added a box
+
+######
+#    #
+# ##$###
+# # $  #
+#  .*..#
+# # $  #
+# @  ###
+######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #29 b
+Comment: extension, added a box
+
+######
+#    #
+# ##$#####
+# # $    #
+# ..*..# #
+##  $    #
+ #@#$#####
+ #   #
+ #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #29 c
+Comment: extension, added 2 boxes
+
+######
+#    #
+# ##$####
+# # $   #
+#...*.. #
+##  $ # #
+ #@#$ $ #
+ #   ####
+ #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #29 d
+Comment: extension, added 3 boxes
+
+  ########
+  #  #   #
+  #  $   #
+  #  ##$##
+#### ##  #
+#  ...#$ #
+#  $ .   #
+###### @##
+     ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #31
+Comment: added a box
+
+########
+#  #   #
+#      #
+#  ## ###
+## ##$$ #
+## ## #@#
+# . .$. #
+#   #####
+#####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #46
+Comment: reduction map
+
+  ####
+###  #
+#    #
+# .$.##
+##$#$ #
+ #.$. #
+ #    #
+ ##@ ##
+  ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #49
+Comment: stoned 2 floors
+
+#######
+#  $. #
+#  $. #
+###  ###
+ # $.  #
+ #@$.  #
+ #######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #51
+Comment: stoned 4 floors
+
+ ######
+ #    ###
+ # $  $ #
+###$# # ##
+# .$...  #
+#   ## @ #
+##########
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #59
+Comment: added a box, redraw map
+
+   ####
+   #  #
+   # .###
+   #$.  #
+#### .$ #
+#  $$.###
+#   @ #
+#######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #62
+Comment: stoned 2 floors
+
+######
+#    #
+# ## #
+# # *###
+# #@*  ##
+# # *   #
+# # * $ #
+# ## #.##
+#    ###
+######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #65
+Comment: added a wall
+
+     #####
+     #   #
+     # # #
+     #   #
+#######. #
+#    $.*$#####
+# # $*  .#   #
+#   #.  *$ # #
+#####$*.$    #
+    # .#######
+    #   #
+    # # #
+    # @ #
+    #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #66
+Comment: added 2 boxes
+
+   ####
+  ##  ##
+ ## *. ##
+## $ .$ ##
+#  .$  * #
+# *  $.  #
+## $. $ ##
+ ## .* ##
+  ##@ ##
+   ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #67
+Comment: added 2 boxes
+
+     #
+    #.#
+   # $ #
+  ##   ##
+ #  ***  #
+#.$ *@* $.#
+ #  ***  #
+  ##   ##
+   # $ #
+    #.#
+     #
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #68
+Comment: stoned 4 floors
+
+########
+#  #   #
+#  #...#
+# $$$$$#
+#  #.*.#
+#  #   #
+#  @  ##
+#######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #70
+Comment: added a wall and a box
+
+  #####
+  #   ###
+ ## #   ###
+ #  .$#   #
+## #$.$.# #
+#  $.+.$  #
+# #.$.$# ##
+#   #$.  #
+###   #$##
+  ###   #
+    #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #77
+Comment: added a box
+
+ #####
+ #   ###
+##.#   ##
+# $ $#  #
+# .$    #
+##.$##  #
+ #.@#####
+ ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #79
+Comment: stoned 2 floors, redraw map
+
+ ####
+ #  ######
+ # $#  . ###
+ #   $ # @ #
+ ## # $ $  #
+  # ##..####
+  # ##. #
+### ### ###
+#     $   #
+#   ###.  #
+##### #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #81
+Comment: added a box, stoned 2 floors
+
+ #########
+ #       ##
+ #.####   #
+##.$ @ $$ #
+# .*.$ #  #
+# ### ## ##
+#        #
+##########
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #82
+Comment: added a wall
+
+     ######
+    ## .  ##
+    #. .$  #
+    #.  #  #
+    ## ##  #
+   ##  #####
+  ## $ #
+ ## $  #
+## $  ##
+# $  ##
+#.@ ##
+#####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #87
+Comment: added a box, stoned 2 floors
+
+    ####
+  ###  #
+ ## .  #
+##     #
+# .$. ##
+# $ ###
+# .$###
+###   #
+  #$# #
+  # @ #
+  #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #93
+Comment: reduction map
 
 #########
-#-------#
-#-------####
-##-####-#--#
-##-#@##----#
-#-$$$-$--$$#
-#--#-##-$--#
-#--#-##--$-####
-####--$$$-$#--#
--#---##---....#
--#-#---#-#..-.#
--#---#-#-##...#
--#####-$--#...#
------##---#####
-------#####
-Title: 21
-Comment: Sokoban2 #16.
+#       ####
+#    ## #  #
+## ### $ $ #
+# ...# $$$ #
+#    @     #
+##..########
+ ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #95
+Comment: stoned 4 floors
 
-######-----####
-#----#######--#####
-#---$#--#--$--#---#
-#--$--$--$-#-$-$--#
-##$-$---#-@#-$----#
-#--$-###########-##
-#-#---#.......#-$#
-#-##--#-......#--#
-#-#---$........$-#
-#-#-$-#....-..#--#
-#--$-$####$####-$#
-#-$---###-$---$--##
-#-$-----$-$--$----#
-##-######-$-#####-#
-#---------#-------#
-###################
-Title: 22
-Comment: Sokoban2 #12. Arranged. Minus 8 boxes.
+#####
+#   ###
+# # $ ##
+# #.$  #
+# #.$#@#
+# #.$  #
+#  .$###
+##$.  #
+ # .  #
+ ######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #98
+Comment: added a box and change wall for a box
 
-----#######
-----#--#--####
-#####-$#$-#--##
-#..-#--#--#---#
-#..-#-$#$-#--$####
-#.--#-----#$--#--#
-#..---$#--#-$----#
-#..@#--#$-#$--#--#
-#..-#-$#-----$#--#
-#..-#--#$$#$--#--##
-#..-#-$#--#--$#$--#
-#..-#--#--#---#---#
-##.-####--#####---#
--####--####---#####
-Title: 23
-Comment: Sokoban2 #13. Arranged.
+ #####
+ # . #####
+ #$ $$ $ #
+ #  ... .#
+##$.  *$ #
+# $*  .$##
+#. ...  #
+#@$ $$ $#
+##### . #
+    #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #109
+Comment: added 2 boxes
+
+    #####
+#####   #
+# $...$ #
+# $*@*$ #
+# $...$ #
+#   ##  #
+#########
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #112 a
+Comment: stoned 4 floors
+
+#########
+#       #
+# $...$ #
+##$*@*$##
+# $...$ #
+#       #
+#########
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #112 b
+Comment: change position walls
+
+###########
+#    #    #
+#  * . *  #
+##*$*@*$*##
+#  * . *  #
+#    #    #
+###########
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #113
+Comment: added a wall
+
+      #####
+    ###   #
+    #   # #
+    # #   #
+##### $ $#####
+#   ##$#.#   #
+# # $....$$# ##
+#    #.@.#    #
+## #$$....$ # #
+ #   #.#$##   #
+ #####$ $ #####
+    #   # #
+    # #   #
+    #   ###
+    #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #114
+Comment: added 4 boxes
+
+      #
+     # #
+    #   #
+   # .$. #
+  # .$.$. #
+ # .$$$$$. #
+# .$.$+$.$. #
+ # .$ $ $. #
+  # .$*$. #
+   # .$. #
+    #   #
+     # #
+      #
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #115
+Comment: added 3 boxes
+
+########
+#  #   #
+#      #
+#  ## ##
+##  #  #########
+ #  #  #       #
+ #  #  $ $ $ $ #
+##$### ####### #
+# $  . . . . ..#
+# @ ############
+#####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #116
+Comment: added 2 boxes, deleted 3 walls
+
+     #####
+     #   ##
+######  $ ##
+#   ###  $ ##
+#     ##  $ #
+#...#  ##   #
+#      ##$  #
+#...# ## $ ##
+##### # $  #
+    #  @  ##
+    #  ####
+    ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #118
+Comment: added a wall
+
+     ####
+   ###  ######
+   #         #
+  ##$  $## # #
+  #  #  ## $ ##
+  #    ## $$  #
+##### $   #   #
+#   #  ########
+#     ##
+#......#
+#   @  #
+########
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #120
+Comment: stoned 2 floors
+
+ #######
+ #     #
+ # $$  #
+ #  $###
+ # #  #
+ # #$ #
+ # #  #
+## ##.##
+#    . #######
+# ###...     #
+#   #.#### $ #
+### #.# $ $$ #
+  #  .  @ #  #
+  ############
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #126 a
+Comment: stoned 2 floors, moved a goal
+
+ #######
+ #     #
+ # $$  #
+ #  $###
+ # #  #
+ # #$ #
+ # #  #
+## ##.#
+#    .########
+# ###...     #
+#   #.#### $ #
+### #.# $ $$ #
+  #  .  @ #  #
+  #########  #
+          ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #126 b
+Comment: moved a goal, added a wall
+
+            ####
+           ##  ###
+          ##  @  #
+         ##  *$  #
+        ##  **  ##
+       ##  **  ##
+      ##  **  ##
+     ##  **  ##
+    ##  **  ##
+   ##  **  ##
+  ##  **  ##
+ ##  **  ##
+##  **  ##
+#  **  ##
+# **  ##
+#. ####
+####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #130
+Comment: moved a goal
+
+                  #####
+            ##### #   #
+            #   ### # #
+      ##### # #*    * #
+##### #   # #   #### ##
+#   ### # # ### #  # #
+# #$   @* #   # #  # ###
+#   ####.###### ####   #
+### #  #......$ #  . # #
+  # #  #  ## .#.   #   #
+ ## #####  ##... # #####
+ # $       ##  ### #
+ # # ###$#$ #####  # #####
+ #   # #    # #    # #   #
+ ##### #  ##### $#$### # #
+       # ###  ##       $ #
+   ##### #  $ ##  ##### ##
+   #   #    #  ##  #  # #
+   # #    # $      #  # ###
+   #   #### ###### ####   #
+   ### #  # #   #      $# #
+     # #  # ### # # ###   #
+    ## ####   # #   # #####
+    # $    $# # #####
+    # # ###   #
+    #   # #####
+    #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #132 The Mixer
+Comment: added 15 boxes. Revised 28-1-2020
+
+            ##### # #####
+           ##   ######  ##
+          # #           # #
+         ##### #######  ####
+        ##   #  #   ## ##  ##
+       # #      # # #      # #
+      ##### ##  ##.##   #  ####
+     ##   #  ####   ##### ##  ##
+    # #      # #     # #      # #
+   ##### ##  ##  #    ##   #  ####
+  ##   #  ####   # #   ##### ##  ##
+ # #      # #    # #    # #      # #
+##### ##  ##     # # #   ##   #  ####
+#   #  ####   ## # $ #    ##### ##  #
+#      # #        .# # #   # #      #
+## ##  ##   ###### $ # #    ##   #  #
+## #####           # #       ##### ##
+ # #  #   ###$#$## # # #####  #  # #
+## # #.       .   +   .       .# # ##
+ # #  #  ##### # # ##$#$###   #  # #
+## #####       # #           ##### ##
+#  #   ##    # # $ ######   ##  ## ##
+#      # #   # # #.        # #      #
+#  ## #####    # $ # ##   ####  #   #
+####  #   ##   # # #     ##  ## #####
+ # #      # #    # #    # #      # #
+  ##  ## #####   # #   ####  #   ##
+   ####  #   ##    #  ##  ## #####
+    # #      # #     # #      # #
+     ##  ## #####   ####  #   ##
+      ####  #   ## ##  ## #####
+       # #    $ #   #      # #
+        ##  ## ## # #  #   ##
+         ####  ## # ## #####
+          # #  $ .#.    # #
+           ##  ######   ##
+            ##### # #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #134 Stargate
+Comment: added 9 boxes
+
+          ####
+          #  #          ####
+      #####  #          #  #         ####
+      #   #  #      #####  #         #  #
+      #     ####    #   #  #     #####  #
+      ####   . #    #     ####   #   #  #
+         # #   #   #####   . #   #     ####
+         # #####   #   # #   #  #####     #
+     ##### ##  #####     #####  #   # #   #
+     #   # ##  #  #####     #####     #####
+     #     ##  #  #  ## #   #  #####   . ####
+     ####     ##  #  ## #####  #  ## #   #  #
+       #  ##     ##  ## #####  #  ## #####  #
+       #  #  ##     ###       ##  ## #####  #
+       #  #  #  ##       ###     ###       ####
+       ####  # $#  ##### ##  ##       ###     #
+         #####  # $##### ## $#  ##### ##  #   #
+         #  #####  #   # ##  # $##### ## .#####
+     #####  #  ##### . $ #####  #   # ##  #
+     #   #  #  #  ##### $ . #####     #####
+     #     #####  #   #.#   #  #####     #
+    #####     ##### . $ #####  #  #  #   #
+    #  ## #   #  ##### $ . #####  #  #####
+#####. ## #####  #  ## #   #  #####  #
+#   #  ## #####  #  ## #####  #  #####
+#     ###       ##  ## #####  #  #  ####
+####       ###     ###       ##  #  #  #
+  #  ##### ##  ##       ###     ##  #  #
+  #  ##### ## $#  ##### ##  ##     ##  #
+  #  #   # ##  # $##### ## $#  ##     ####
+  #### .   #####  #   # ##  # $#  ##     #
+    #####     #####     #####  #  ## #   #
+    #   # #   #  #####     #####  ## #####
+    #     #####  #   #$#   #   ##### #
+    ####     #   # .   #####   #   # #
+      #  #   #   ####     #    # .   ####
+      #  #####     #  #   #    ####     #
+      #  #         #  #####      #  #   #
+      ####         # @#          #  #####
+                   ####          #  #
+                                 ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban II #135 Fractal
+Comment: added 12 boxes. Revised 28-1-2020
+
+#######
+#     #
+# .$$ #
+##. ###
+# .$$ #
+# . # #
+#   @ #
+#######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #3
+Comment: added a box, rearranged boxes
+
+################
+#  #  #  #  #  #
+#. .  #  #$ #$ #
+# $#  *  # .#  #
+#  #. #  *  #$ #
+# $# $#  #  . .#
+#  #  # @#  #  #
+################
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #8
+Comment: added 4 boxes
+
+####
+#  #####
+#      #
+# .#.# #
+##$$$$ #
+# . .###
+# @  #
+######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #15
+Comment: added a wall and a floor
+
+    ####
+ ####  ##
+ #  # * ##
+##.$#  * ##
+#     * * #
+# @ #  *  #
+######    #
+     ######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #20 a
+Comment: stoned 2 floors
+
+   ####
+####  ##
+#  # * ##
+#.$#  * ##
+#    * * #
+# @#  *  #
+######   #
+     #  ##
+     ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #20 b
+Comment: stoned 3 floors
+
+    #####
+   ##   #
+   #  @ #
+#### #$##
+#...  . #
+#  ###  #
+## $ $ ##
+ #  $ ##
+ ###  #
+   ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #21
+Comment: added a box
+
+   ######
+   #  . #
+   #  $ #
+   ## #######
+#####   ##  #
+#  #  *     #
+#.$# *+* #$.#
+#     *  #  #
+#  ## $ #####
+####### ##
+    # $  #
+    # .  #
+    ######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #23 a
+Comment: added a box, stoned many floors
+
+    ####
+    #  ###
+    # $. #
+    #  $ #
+    ## ########
+ #####   ##   #
+ #  # .*.   $ #
+##.$# *@* #$.##
+# $   .*. #  #
+#   ##   #####
+######## ##
+     # $  #
+     # .$ #
+     ###  #
+       ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #23 b
+Comment: added 4 boxes
+
+    ####
+    #  ###
+    #  . #
+    #  $ #
+    ## ########
+ #####    #   #
+ #  # ***     #
+##.$# *+* #$.##
+#     *** #  #
+#   #     ####
+######## ##
+     # $  #
+     # .$ #
+     ###  #
+       ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #23 c
+Comment: added 5 boxes, deleted 3 walls
+
+    ####
+    #  ###
+    # $. #
+    #  $ #
+    ## ########
+ ####.   .#   #
+ #  # ***   $ #
+##.$# *@* #$.##
+# $   *** #  #
+#   #.   .####
+######## ##
+     # $  #
+     # .$ #
+     ###  #
+       ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #23 d
+Comment: added 8 boxes, deleted 4 walls
+Date: 2010.10.6
+
+    ####
+    #  ###
+    # $. #
+    #  $ #
+    ## ########
+ #####  ###   #
+ #  ## .    $ #
+##.$# .*. #$.##
+# $    . ##  #
+#   ###  #####
+######## ##
+     # $  #
+     # .$ #
+     ### @#
+       ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #24 a
+Comment: added a box
+
+    ####
+    #  ###
+    # $. #
+    #  $ #
+    ## ########
+ #####  ###   #
+ #  ##.*      #
+##.$# * * #$.##
+#      *.##  #
+#   ###  #####
+######## ##
+     # $  #
+     # .$ #
+     ### @#
+       ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #24 b
+Comment: added 2 boxes
+
+#########
+#   ## .#
+#      .#
+## #$# .#####
+ # #   .##  #
+## ####  $$ #
+#  #   ##$  #
+#        @ ##
+#  #########
+####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #27
+Comment: some changes on the left side, added a wall
+
+####  ####
+#  ####  #
+# $$  $$ #
+# .$..$. #
+## .@ . ##
+ ########
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #28
+Comment: stoned 4 floors
+
+###########
+#         ##
+# ### ###  #
+# .*.*.*.  #
+#   $+$   ##
+###$###$###
+  #  $   #
+  #  #   #
+  #  #####
+  ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #30
+Comment: extension
+
+       ####
+  ###### .#
+###      .#
+#  $$ # ..#
+# $  #  .##
+#  $$# #.###
+###  # $*  #
+  #    # # #
+  #####    #
+      # @ ##
+      #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #31
+Comment: added 2 boxes
+
+           #######
+          ##     #
+         ##  ### #
+         #  $ $  ##
+         # $ $ $  #
+ #########  # # @ #
+ # . . . # ########
+##   .   $   $ #
+#  . . . # #   #
+# ######## #####
+#          #
+############
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #33
+Comment: added a box
+
+     ####
+   ### @#
+   #  $ #
+   #    #
+  ### ###
+ ## $$ #
+##.....#
+#   $$ #
+# # #  #
+#   ####
+#####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #39
+Comment: stoned 5 floors
+
+   ########
+   #   #  #
+   #    $ #
+ #####$## #
+ #   # ##.#
+ #   #  #.#
+ ##  $  #.#
+  #  #  #.#
+  #$#####.#
+### #  ##.##
+#      $   #
+# $#   # @ #
+#      #####
+########
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #40
+Comment: some changes at the bottom
+
+#####
+#   #######
+#  . . . .#
+## $ $ $  #
+######@####
+#  $ $ $ #
+#  . . . #
+#######$ #
+      #  #
+      ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #42
+Comment: added a box, change position goals
+
+#####    #####
+#. #######   #
+# $ #####  $ #
+#  $ ###  $ ##
+##  $ #  $ ###
+ ##  .... ###
+ ### .##*####
+ ####*##. ###
+ ### ....  ##
+### $  # $  ##
+## $  ### $  #
+# $  ##### $ #
+#@  ####### .#
+#####    #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #46
+Comment: added 2 boxes
+Date: 2010.10.7
+
+  #########
+  #       #
+### # # # ###
+#  $.$.$.$  #
+# #.$.$.$.# #
+# .$.# #.$$ #
+# #.$ @ $.# #
+# $$.# #.$. #
+# #.$.$.$.# #
+#  $.$.$.$  #
+### #.#$# ###
+  #       #
+  #########
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #57 a
+Comment: added 3 boxes
+
+  #########
+  #       #
+### # # # ###
+#  $.$.$.$  #
+# #.$.$.$.# #
+#  $.# #.$# #
+# #.$ @ $.# #
+# #$.# #.$  #
+# #.$.$.$.# #
+#  $.$.$.$  #
+### # ### ###
+  #       #
+  #########
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #57 b
+Comment: added 3 walls
 
 ###############
-#..........--.####
-#..........$$.#--#
-###########$-#---##
-#------$--$-----$-#
-##-####---#--$-#--#
-#------#---##--#-##
-#--$#--#-##--###-##
-#-$-#$###----###-##
-###--$-#--#--###-##
-###----$-##-#--#-##
--#-$--#--$--$-$---#
--#--$--$#$$$--#---#
--#--#--$------#####
--#-@##--#--#--#
--##############
-Title: 24
-Comment: Sokoban2 #14. Arranged. Minus one box.
+#             #
+# # # # #$#.# #
+# .$.$.$.$.$  #
+# #.$.$.$.$.# #
+# $$.$.$.$.$  #
+# #.$.$.$.$.# #
+#  $.$.@.$.$  #
+# #.$.$.$.$.# #
+#  $.$.$.$.$$ #
+# #.$.$.$.$.# #
+#  $.$.$.$.$. #
+# #.#$# # # # #
+#             #
+###############
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #58
+Comment: added 4 boxes
 
+#################
+#               #
+#*...*######### #
+#.$$$.  $       #
+#.$@$.######### #
+#.$$$.    $     #
+#*...*######### #
+#  $        $   #
+# ############# #
+#               #
+#################
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #59
+Comment: added 3 boxes, rearranged goals/boxes
+
+     ####
+######  #
+#   ##@ #
+#    #$.#
+##    $.#
+ ##  #$.#
+  ####  #
+     ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #64 LOMA 1e
+Comment: stoned 4 floors
+
+ #####
+ #   #
+##   #
+# * ##
+#.@$#
+# * #
+#  ##
 ####
-#--##############
-#--#---..#......#
-#--#-#-#####-...#
-##$#----........#
-#---##$######--####
-#-$-#-----######@-#
-##$-#-$---######--#
-#--$-#$$$##-------#
-#------#----#$#$###
-#-####-#$$$$$----#
-#-#----$-----#---#
-#-#---##-##-----###
-#-######$######-$-#
-#--------#----#---#
-##########----#####
-Title: 25
-Comment: Sokoban2 #15. Arranged. Minus two boxes.
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #89 LOMA 8a
+Comment: stoned 3 floors
 
-####
-#--##############
-#--#---..#......#
-#--#-#-#####-...#
-##$#----........#
-#---##$######--####
-#-$-#-----######@-#
-##$-#-$---######--#
-#--$-#$$$##-------#
-#------#----#$#$###
-#-####-#$$$$$----#
-#-#----$-----#---#
-#-#---##--------###
-#-######$######-$-#
-#--------#----#---#
-##########----#####
-Title: 25X
-Comment: Sokoban2 #15. Arranged. Minus two boxes. In the XSokoban 
-levelset 2 walls at K13 and L13 were removed.
+ #####
+##   #
+# *  #
+#.@$##
+# *  #
+##   #
+ #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #91 LOMA 8c
+Comment: stoned 2 floors
 
--#######
--#--#--#####
-##--#--#...###
-#--$#--#...--#
-#-$-#$$-...--#
-#--$#--#...-.#
-#---#-$########
-##$-------$-$-#
-##--#--$$-#---#
--######--##$$@#
-------#------##
-------########
-Title: 26
-Author: Shinji Yamada
-Comment: Sokoban2 #21.
+ ######
+ #    ##
+## ##  #
+# . ## #
+# .  # #
+# .  # #
+###$$$ #
+  #@ ###
+  ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #92 LOMA 8d
+Comment: change position goals and boxes
 
--#################
--#...---#----#---##
-##.....--$##-#-#$-#
-#......#--$--#----#
-#......#--#--#-#--#
-#########-$--$-$--#
---#-----#$##$-##$##
--##---$----#-$----#
--#--##-###-#--##$-#
--#-$-$$-----$--$--#
--#-$----$##$-######
--#######--@-##
--------######
-Title: 27
-Author: Akira Yotsumichi
-Comment: Sokoban2 #17. Arranged.
+     #####     #####     #####     #####
+     #   #######   #######   #######   ####
+     # # #  #### # #  #### # #  #### # #  ##
+     #       ###       ###       ###       ##
+    #### #    #### #    #### #    #### #    ##
+#######   #    ##   #    ##   #    ##   #    #
+#   ###    #    #    #    #    #    #    # $ #
+# # #  #    #    #    #    #    #    # ** #  #
+#       #    #    #    #    #    #    #    ###
+### #    #    #    #    #    #    #    #    ##
+ #   #    #    #    #    #    #    #    #    #
+ #    #    #    #    #    #    #    #    #   #
+ ##    #    #    #    #    #    #    #    # ###
+ ###    #    #    #    #    #    #    #       #
+ ####    #    # ** #    #    #    #    #  # # #
+######    #    #    #    #    #    #    ###   #
+#   ###    #    #    # ** #    #    #    ######
+# # #  #    #    # ** #    #    #    #    ####
+#       #    # ** #    #    # ** #    #    ###
+### #    #    #    #    # ** #    #    #    ##
+ #   #    #    #    # ** #    #    #    #    #
+ #    #    #    # ** #    #    #    #    #   #
+ ##    #    # ** #    #    # ** #    #    # ###
+ ###    #    #    #    # ** #    #    #       #
+ ####    #    #    # ** #    #    #    #  # # #
+######    #    #    #    #    #    #    ###   #
+#   ###    #    #    #    # ** #    #    ######
+# # #  #    #    #    #    #    #    #    ####
+#       #    #    #    #    #    #    #    ###
+### #    #    #    #    #    #    #    #    ##
+ #   #    #    #    #    #    #    #    #    #
+ #    #    #    #    #    #    #    #    #   #
+ ##    #    #    #    #    #    #    #    # ###
+ ###    #    #    #    #    #    #    #       #
+ #  # ** #    #    #    #    #    #    #  # # #
+ # . #    #    #    #    #    #    #    ###   #
+ #  @ #   ##    #   ##    #   ##    #   #######
+ ##    # ####    # ####    # ####    # ####
+  ##       ###       ###       ###       #
+   ##  # # ####  # # ####  # # ####  # # #
+    ####   #######   #######   #######   #
+       #####     #####     #####     #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban III #101
+Comment: added 30 boxes
 
----------#####
------#####---#
-----##-$--$--####
-#####-$--$-$-##.#
-#-------$$--##..#
-#--######-###..-#
-##-#--#----#...-#
-#-$---#----#...-#
-#@-#$-##-####...#
-####--$-$$--##..#
----##--$-$--$...#
-----#-$$--$-#--.#
-----#---$-$--####
-----######---#
----------#####
-Title: 28
-Comment: Sokoban2 #18. Rotated.
+#####  ####
+#   #  #  #
+# $ ####$ ##
+#  $.... $ ##
+##  ####  @ #
+ #  #  #    #
+ ####  #  ###
+       ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #6
+Comment: stoned 2 floors
 
-#####
-#---##
-#-$--#########
-##-#-#-------######
-##-#---$#$#@--#---#
-#--#------$-#---$-#
-#--###-#########-##
-#--##-..*.....-#-##
-##-##-*.*..*.*-#-##
-#-$##########-##$-#
-#--$---$--$----$--#
-#--#---#---#---#--#
-###################
-Title: 29
-Comment: Sokoban2 #43. Rotated.
+    ####
+    #  #
+  ###$.##
+###     #
+# . **  ###
+# $ *@* $ #
+### *** . #
+  #     ###
+  ##.$###
+   #  #
+   ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #9 a
+Comment: added a box
 
--------###########
--------#---#-----#
-#####--#-----$-$-#
-#---#####-$##-#-##
-#-$-##---#-##-$--#
-#-$--@$$-#-##$$$-#
-##-###---#-##----#
-##-#---###-#####$#
-##-#-----$--#....#
-#--###-##-$-#....##
-#-$---$-#---#..$.-#
-#--##-$-#--##....-#
-#####---######...##
-----#####----#####
-Title: 30
-Comment: Sokoban2 #20. Arranged and rotated.
-
---####
---#--#########
--##--##--#---#
--#--$#-$@$---####
--#$--$--#-$-$#--##
-##--$##-#$-$-----#
-#--#--#-#---$$$--#
-#-$----$--$##-####
-#-$-$-#$#--#--#
-##--###--###$-#
--#--#....-----#
--####......####
----#....####
----#...##
----#...#
----#####
-Title: 31
-Comment: Sokoban2 #22.
-
-------####
---#####--#
--##-----$#
-##-$--##-###
-#@$-$-#-$--#
-####-##---$#
--#....#$-$-#
--#....#---$#
--#....--$$-##
--#...-#-$---#
--######$-$--#
-------#---###
-------#$-###
-------#--#
-------####
-Title: 32
-Comment: Sokoban2 #23.
-
-############
-##-----##--#
-##---$---$-#
-####-##-$$-#
-#---$-#----#
-#-$$$-#-####
-#---#-#-$-##
-#--#--#--$-#
-#-$#-$#----#
-#---..#-####
-####..-$-#@#
-#.....#-$#-#
-##....#--$-#
-###..##----#
-############
-Title: 33
-Author: Noriko Hashimoto
-Comment: Sokoban2 #24.
-
--#########
--#....---##
--#.#.#--$-##
-##....#-#-@##
-#-....#--#--##
-#-----#$-##$-#
-##-###--$----#
--#$--$-$-$#--#
--#-#--$-$-##-#
--#--###--##--#
--#----##-##-##
--#--$-#--$--#
--###$-$---###
----#--#####
----####
-Title: 34
-Comment: Sokoban2 #28.
-
-############-######
-#---#----#-###....#
-#---$$#---@--.....#
-#---#-###---#-....#
-##-##-###--#--....#
--#-$-$-----#-#-####
--#--$-$##--#------#
-####-#--####-#-##-#
-#--#-#$---##-#----#
-#-$--$--#-##-#---##
-#-#-$-$----#-#---#
-#--$-##-##-#-#####
-#-$$-----$$--#
-##-##-###-$--#
--#----#-#----#
--######-######
-Title: 35
-Author: Katsuaki Yonetani
-Comment: Sokoban2 #25. Arranged.
-
-------------#####
-#####--######---#
-#---####--$-$-$-#
-#-$---##-##-##--##
-#---$-$-----$--$-#
-###-$--##-##-----##
---#-#####-#####$$-#
--##$#####-@##-----#
--#-$--###$###-$--##
--#-$--#---###--###
--#-$$-$-#---$$-#
--#-----#---##--#
--#######..-.###
-----#.........#
-----#.........#
-----###########
-Title: 36
-Author: Hiroshi Tanaka
-Comment: Sokoban2 #26. Arranged and rotated.
-
-###########
-#......---#########
-#......---#--##---#
-#..###-$----$-----#
-#...-$-$-#--###---#
-#...#$#####----#--#
-###----#---#$--#$-#
---#--$$-$-$--$##--#
---#--$---#$#$-##$-#
---###-##-#----##--#
----#--$-$-##-######
----#----$--$--#
----##---#-#---#
-----#####@#####
---------###
-Title: 37
-Comment: Sokoban2 #27. Arranged.
-
-###########
-#......---#########
-#......---#--##---#
-#..###-$----$-----#
-#...-$-$-#---##---#
-#...#$#####----#--#
-###----#---#$--#$-#
---#--$$-$-$--$##--#
---#--$---#$#$-##$-#
---###-##-#----##--#
----#--$-$-##-######
----#----$--$--#
----##---#-#---#
-----#####@#####
---------###
-Title: 37X
-Comment: Sokoban2 #27. Arranged. In the XSokoban levelset the wall at 
-M5 was removed.
-
-------####
-#######-@#
-#-----$--#
-#---$##-$#
-##$#...#-#
--#-$...--#
--#-#.-.#-##
--#---#-#$-#
--#$--$----#
--#--#######
--####
-Title: 38
-Author: Yoshiki Kondo.
-Comment: Sokoban2 #30.
-
--------------######
--#############....#
-##---##-----##....#
-#--$$##--$-@##....#
-#------$$-$#--....#
-#--$-##-$$-#-#-...#
-#--$-##-$--#--....#
-##-#####-###-##.###
-##---$--$-##---.--#
-#-$###--#-#####-###
-#---$---#-------#
-#--$-#$-$-$###--#
-#-$$$#-$---#-####
-#----#--$$-#
-######---###
------#####
-Title: 39
-Author: Yoshiki Kondo.
-Comment: Sokoban2 #29. Arranged.
-
-----############
-----#----------##
-----#--#-#$$-$--#
-----#$-#$#--##-@#
----##-##-#-$-#-##
----#---$-#$--#-#
----#---#-$---#-#
----##-$-$---##-#
----#--#--##--$-#
----#----##-$$#-#
-######$$---#---#
-#....#--########
-#.#...-##
-#....---#
-#....---#
-#########
-Title: 40
-Comment: Sokoban2 #33.
-
------------#####
-----------##---##
----------##-----#
---------##--$$--#
--------##-$$--$-#
--------#-$----$-#
-####---#---$$-#####
-#--########-##----#
-#.------------$$$@#
-#.#-#######-##---##
-#.#-#######.-#$-$##
-#...........-#----#
-##############--$-#
--------------##--##
---------------####
-Title: 41
-Comment: Sokoban2 #31. Arranged. Minus one box.
-
------########
---####------######
---#----##-$-$---@#
---#-##-##$#$-$-$##
-###-......#--$$-##
-#---......#--#---#
-#-#-......#$--$--#
-#-#-......-$$#-$-#
-#-$-###-###$--$-##
-###--$--$--$--$-#
---#--$--$--$--$-#
---######---######
--------#####
-Title: 42
-Author: Yoshiki Kondo.
-Comment: Sokoban2 #32. Arranged.
-
------########
---####------######
---#----##-$-$---@#
---#-##-##$#$-$-$##
-###-......#--$$-##
-#---......#--#---#
-#-#-......#$--$--#
-#-#$......-$$#-$-#
-#---###-###$--$-##
-###--$--$--$--$-#
---#--$--$--$--$-#
---######---######
--------#####
-Title: 42X
-Author: Yoshiki Kondo.
-Comment: Sokoban2 #32. Arranged. In the XSokoban levelset the box at 
-C9 moved to D8.
-
---------#######
-----#####--#--####
-----#---#---$----#
--####-#$$-##-##--#
-##------#-#--##-###
-#--###-$#$--$--$--#
-#...----#-##--#---#
-#...#----@-#-###-##
-#...#--###--$--$--#
-########-##---#---#
-----------#########
-Title: 43
-Comment: Sokoban2 #35.
-
--#####
--#---#
--#-#-#######
--#------$@######
--#-$-##$-###---#
--#-####-$----$-#
--#-#####-#--#$-####
-##--####-##$------#
-#--$#--$--#-##-##-#
-#---------#-#...#-#
-######--###--...--#
------####-#-#...#-#
-----------#-###-#-#
-----------#-------#
-----------#########
-Title: 44
-Comment: Sokoban2 #37.
-
-#####-####
-#...#-#--####
-#...###--$--#
-#....##-$--$###
-##....##---$--#
-###...-##-$-$-#
-#-##----#--$--#
-#--##-#-###-####
-#-$-#-#$--$----#
-#--$-@-$----$--#
-#---#-$-$$-$-###
-#--######--###
-#-##----####
-###
-Title: 45
-Comment: SokobanMSX #51.
-
-##########
-#--------####
-#-######-#--##
-#-#-$-$-$--$-#
-#-------#$---#
-###$--$$#--###
---#--##-#-$##
---##$#---$-@#
----#--$-$-###
----#-#---$--#
----#-##---#-#
---##--#####-#
---#---------#
---#.......###
---#.......#
---#########
-Title: 46
-Author: Shinji Yamada
-Comment: Sokoban2 #46.
-
----------####
--#########--##
-##--$------$-#####
-#---##-##---##...#
-#-#$$-$-$$#$##...#
-#-#---@---#---...#
-#--$#-###$$---...#
-#-$--$$--$-##....#
-###$-------#######
---#--#######
---####
-Title: 47
-Author: Hachiro Kajiwara
-Comment: Sokoban2 #47.
-
---#########
---#*.*#*.*#
---#.*.*.*.#
---#*.*.*.*#
---#.*.*.*.#
---#*.*.*.*#
---###---###
-----#---#
-######-######
-#-----------#
-#-$-$-$-$-$-#
-##-$-$-$-$-##
--#$-$-$-$-$#
--#---$@$---#
--#--#####--#
--####---####
-Title: 48
-Author: Katsuji shimizu
-Comment: Sokoban2 #2.
-
--------####
--------#--##
--------#---##
--------#-$$-##
------###$--$-##
---####----$---#
-###--#-#####--#
-#----#-#....$-#
-#-#---$-....#-#
-#--$-#-#.*..#-#
-###--####-###-#
---####-@$--##$##
------###-$-----#
--------#--##---#
--------#########
-Title: 49
-Comment: Sokoban2 #38.
-
-------############
------##..----#---#
-----##..*-$----$-#
----##..*.#-#-#$-##
----#..*.#-#-#-$--#
-####...#--#----#-#
-#--##-#----------#
-#-@$-$-###--#-#-##
-#-$---$---#-#---#
-###$$---#-#-#-#-#
---#---$---#-#-#####
---#-$#-#####------#
---#$---#---#---#--#
---#--###---##-----#
---#--#------#----##
---####------######
-Title: 50
-Comment: Sokoban2 #39.
-
-------############
------##..----#---#
-----##..*-$----$-#
----##..*.#-#-#-$##
----#..*.#-#-#-$--#
-####...#--#----#-#
-#--##-#----------#
-#-@$-$-###--#---##
-#-$---$---#-#---#
-###$$---#-#-#-#-#
---#---$---#-#-#####
---#-$#-#####------#
---#$---#---#----#-#
---#--###---##-----#
---#--#------#----##
---####------######
-Title: 50X
-Comment: Sokoban2 #39. In the XSokoban levelset the box at O4 moved to 
-P4, the wall at O8 disappeared and the wall at P13 moved to Q13
-
--#########
--#-------#
--#-$-$$-$#
-###-#--$-#
-#.#---$$-##
-#.###---$-#
-#.#.-$-##-####
-#...--$##-$--#
-#...$---$----#
-#..###$###-#@#
-#..#-#-----###
-####-#######
-Title: 51X
-
------------########
------------#......#
----####----#......#
----#--#########...#
----#-$---$----#...#
----#--#-#-#-#-#---#
-#####-#-#-#@#-#---#
-#---#-###-###-##-##
-#----$-#-$-$-$-#-#
-#-$$$--$---#-----#
-#---#-###$###$##-#
-###-#--$---#-----#
--##-$--#-$-$-$-###
--#--#-###-###-##
--#-$----------#
--#--###########
--####
-Title: 52X
-
-####################
-#----------------###
-#-$#---$-##--$----##
-#----$###----#-$$-##
-#.###-----$-$-##--##
-#...#--#--#----#$--#
-#..##$$####-$--#---#
-#...#------$-##--###
-#...$--###--#----#-#
-##..--$#--##---##@-#
-###.#--------------#
-####################
-Title: 53X
-
-####################
-#---#----#---#---#@#
-#-$------$---$---#-#
-##-###..##-###-----#
-#---#....#$#--$###-#
-#-$-#....#--$--$-$-#
-#---#....#-#-#-$-$-#
-#---##..##---#$#---#
-##$##----##--#--#$##
-#---$--$-----#--#--#
-#---#----#---#-----#
-####################
-Title: 54X
-
-####################
-#----@##------#---##
-#----##----$----$-##
-#--###....#-#-#--###
-#---#....#-#-#-$---#
-###-#...#--#-------#
-##--##.#-----$---$-#
-##--$-$-###--#-#-###
-##-$-------#-#-$---#
-####-$--$#-#-#-#-$-#
-####---------#-#--##
-####################
-Title: 55X
-Comment: A remodel using the goal- and storing- area from Original 50. 
-But the level is open so you can fill the goal from both sides and no 
-longer need to push all the boxes through the goal area to solve the 
-level
-
-####################
-#--#--##----#---@###
-##----$----#-$###--#
-##$#-$-##$#-$-$----#
-#---$#----$------###
-#-##---$-###--#....#
-#-#-$#-#-#-#-#....##
-#----$-$-#--#....###
-##$-###--$-#....####
-#--#-$--------######
-#------#-#----######
-####################
-Title: 56X
-
-####################
-#@-----###---#--#--#
-#-#-#--#--$--$-----#
-#####-----#-$-$#$#-#
-#.#..#----##$-$----#
-#.....----$---#---##
-#.....----###$##$###
-#.#..#----$----#---#
-#####-----#--#$--$-#
-#####--#--$----$-$-#
-#####--#--#--#--#--#
-####################
-Title: 57X
-
-####################
-##...---##-#----#--#
-#....---------$-##-#
-#....#-#-#$###$----#
-#...#----#-------#-#
-##.#--#$-#-----$##-#
-#--#--#-$-$-###--$-#
-#-----$--$-#--#-##-#
-##-#-##-#$$#-$#--#-#
-#--#---$-$-#------##
-#----#-----#--#---@#
-####################
-Title: 58X
-
-####################
-#---#--#@#-##--#####
-#-#-#--$----$--#####
-#-#----######-$--###
-#---#--#....#--$$--#
-##$##$##....#------#
-#------#....##$##$##
-#--$$--#....#------#
-#-$--$--#--#--###--#
-#####--$---$----$--#
-#####-#----#--#---##
-####################
-Title: 59X
-
-####################
-#-#-----#----------#
-#-------$--##-###-##
-#####--##---$--$---#
-##..##--#-#-$-#-#--#
-#....--$-----##$#-##
-#....--$#####---#$##
-##..#-#--#---#--$--#
-###.#-#--$---$--#-@#
-##--$--$-#---#--####
-##-------###########
-####################
-Title: 60X
-
-####################
-#-----###..###-----#
-#-$$--###..###--$@-#
-#--#-##......#--$--#
-#-----#......#--$--#
-####--###..######$-#
-#---$$$-#..#----#--#
-#-$#---$--$--$$-#$-#
-#--#--##-$--##--#--#
-#-$----$-##-$----$-#
-#--#--##----##--#--#
-####################
-Title: 61X
-
-####################
-#----#--#-#--#--#--#
-#-@#-#-##-$---$---##
-####-#----#--#-$---#
-#----#-##-#$-##-##-#
-#------$---$---$---#
-#..###$$##-$##$-##-#
-#..#.#--#-$---$-#--#
-#....#-$$---##$-####
-#....#--#####------#
-#...###--------##--#
-####################
-Title: 62X
-
-####################
-#....#-------#--#--#
-#....#-#-$--$------#
-#....-##--$#-#-$#$-#
-#...#---$---$#--$--#
-#..####--#-$---$$--#
-#------####-####-###
-#--------#---#-----#
-#-##---#---$-#-$-$-#
-#-##----$-##-$--$--#
-#-----@#-----#---#-#
-####################
-Title: 63X
-
-####################
-#....###-----------#
-#....#####-#--#$#-##
-#....###---#$--$---#
-#....###----$--#$$##
-##--####-$#--#$-$--#
-##--####--$--$--#--#
-#@--####$###$##-$--#
-##--------#--#--$--#
-##---###--#--$--####
-########--#--#-----#
-####################
-Title: 64X
-
-####################
-#-----#-----@#...###
-#-----#------##...##
-#-#-#-##$##-##-....#
-#---$-#---$$$--....#
-###$###-$$--###-##.#
-#-----$--#----#-####
-#--$--#--###--#-#--#
-##-#$##----$--$$---#
-#---$-##---#--#-#--#
-#-----#----#--#----#
-####################
-Title: 65X
-
-####################
-#-----#--#...#@----#
-#-#-------....#----#
-#--$--#---#....#---#
-#-##$####-##....#--#
-#-$---$--#--#...#--#
-#-$$-#---#---#-$$--#
-###--$$$#---$$--$--#
-#-$--#--#----#-$#--#
-#---$#--#-------$--#
-#--#----#----#--#--#
-####################
-Title: 66X
-
-####################
-#####@###.##...##--#
-#####$--..#...#----#
-####----......#--$-#
-###--$-#.....##-#-##
-##--$$#-#####--$-$-#
-##-$#-$----##--$$--#
-##--#--#----#-$--$-#
-##---$$-###-#$##---#
-##-$#------$-$--$-##
-###----#----#----###
-####################
-Title: 67X
-
-####################
-#@-----#---#-------#
-##-###-##--####-#-##
-#----#-#--$$-------#
-#--#-#-#-$-#-$-##-##
-#-----$-#--#$$-#---#
-#--###--#------##-##
-#..#.#-$-#--$-#----#
-#..#.#--$-#-##-$$--#
-#....##---$$--$--#-#
-#.....##--------#--#
-####################
-Title: 68X
-
-####################
-#--#------#---#---##
-#-$#-$-$-##...$--$-#
-#--$--#-##....#-$--#
-#-##-$-##....#---$-#
-#-$----#....##-$---#
-#-$##--#...#-------#
-#---$$$##$##--###-##
-#-#-#--#---#--#----#
-#-$-#--$--##-------#
-#----#----#@-------#
-####################
-Title: 69X
-
-####################
-#--#--#-#----#--#--#
-#---$------$-$-----#
-##-#--#$###$##--##-#
-#---$-----$--#--$--#
-#-###$##$#---#-$---#
-#-#---$-$--######-$#
-#-$--$$-$--#@#.#...#
-#-#-----#--#-#.#...#
-#-##########-#.....#
-#------------#.....#
-####################
-Title: 70X
-
-####################
-#--#-----#--##----##
-#-$#---$-#-----##--#
-#-$--$--#..#-----$-#
-#-$-$--#....#---#-##
-#-$#--#......###-$-#
-#---#--#....#--#$--#
-#-$--####..#---#---#
-##-$---##-#-#-$--$##
-###-$----$#@$-$#---#
-####---#-------#---#
-####################
-Title: 71X
-
-####################
-#------....#----####
-#------....--------#
-#-#-##########-----#
-#-#$---#------###..#
-#--$---#$$###---#..#
-#-$-###-$---$---#..#
-#-$-#---$-$-#--##..#
-#--#--$$-#-$-##---##
-#@##-$#--$--$-----##
-##-------##---#--###
-####################
-Title: 72X
-
-####################
-#--------#---#@-#--#
-#-$$--#$$#-#-#--##-#
-#--#-$-$-#$$-#-----#
-##-#--#--#-#-#--#--#
-#---##-------#-----#
-#---#-$-#---#---#--#
-#-$-#$-#---#--$-#..#
-##$-#--####----#...#
-#--$----------#....#
-#---#--#-----#.....#
-####################
-Title: 73X
-
-####################
-#-----#---#####----#
-##-$--#---####--$--#
-####-$$---#..#--#--#
-#--$--$--##..####-##
-#-$---###....---$$-#
-#--#$#---....#-#-$-#
-#-#--#-$-..###$#---#
-#-#---$-#..#---##--#
-#---$#--####---#-$##
-#-#--#----@#------##
-####################
-Title: 74X
-
-####################
-#---#---#----#---#@#
-#---$--$-----#-$-#-#
-##$#-$###-#----$$#-#
-#--#--#.###--#$-$--#
-#--#$#....#--#-###-#
-#-$--#.....##----#-#
-##$--#.#....#$$-$--#
-#--######..##-#--#-#
-#--$---------$-###-#
-#---#---#--------#-#
-####################
-Title: 75X
-
-####################
-#-#-#-#---#@##---#-#
-#-------------$----#
-#--##$#-#####-$-#-##
-##----##.....#--#--#
-##$##$#.....###$#$-#
-#---#-##.....#--#-##
-#--$----##..##--#--#
-#-$-#---$---$--$$$-#
-##-$--$#-#--#--$---#
-#---##---#--#------#
-####################
-Title: 76X
-
-####################
-#----##---#----#---#
-#--$--$-----##-$---#
-##-#####--.######-##
--#-##--##....####-##
-##-##$-###..##-----#
-#------#...-.#-$-$-#
-#-$-##-##-.-###-####
-#-#-$----#.##-#-#---
-#-$-$-#---.####-##--
-#-#--##-#-##--#--##-
-#######--$##$---$-#-
-------##------$-#@#-
--------#--##-######-
--------#######----
-Title: 77X
-Comment: This puzzle was substituted by the more uninterresting level 
-77SL in the collection "Scott Lindhurst-MacIntosh"
-
-######--#####
-#----#--#---#
-#-$--####-$-#
-#-$------$--#
-#--###@###$-#
-##########-###
-#..---##-----#
-#..---##$----#
-#..---##-$---#
-#..---##-$---#
-#..-----$-$--#
-###--#########
---####
-Title: 77SL
-Comment: This puzzle replaced the original 77 in the collection "Scott 
-Lindhurst- MacIntosh"
-
--------###########
--------#---------#
--------#----$-$--#
-######-#-$-#####-#
-#----#####-$--##$#
-#-------$-$------#
-#----------##-##-#
-#----##@#####-##-#
-#----####---#-##-##
-#....#------#-$---#
-#....#------#-----#
-######------#######
-Title: 78X
-
-#############
-#-----------#
-#-###-$$----#
-#---#-$--$--#
-#--$####$######
-#-$-##--------#####
-#--$$-$--------...#
-###-##-$$#-----...#
---#-##---#-----...#
---#------#-----...#
---###@#############
-----###
-Title: 79X
-
---#################
-###@##---------...#
-#----#---------...#
-#-$--#---------...#
-#-$$-#---------...#
-##-$-###$##########
--#-###--$-#
-##---$--$-#
-#--$-#--$-#
-#-$--#----#
-#--$-#----#
-#----#----#
-###########
-Title: 80X
-
---------------#####
------##########---#
------#--------#---#
------#--$-$----$$-#
------#-#####-##-$-#
------#$$---#$##-$-#
------#-###-#-##$--#
-######-###-$-$----#
-#....--------##---#
-#....--------######
-#....--------#
-###########@##
-----------###
-Title: 81X
-
-----######
--####----#
--#----##-#
--#-$-----#
-###-####-########
-#--$---$-##--...#
-#---$$-$$----...#
-#----$--$##--...#
-##@##-##-##--...#
--###--$--########
--#---$$--#
--#----#--#
--#########
-Title: 82X
-
-#######-#########
-#-----#-#---##--#
-#-###-#-#---$---#
-#-#-$-###---$---#
-#---$$------##$-#
-#----####---##--#
-#@############-##
-###..----#####$-#
---#..----####---#
---#..-------$$--#
---#..----####-$-#
---#..----#--#---#
---########--#####
-Title: 83X
+    ####
+    #  #
+  ###$.##
+###   * #
+# .* *  ###
+# $ *@* $ #
+###    *. #
+  # *   ###
+  ##.$###
+   #  #
+   ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #9 b
+Comment: added a box, moved 3 goals
 
 #######
-#-----##########
-#-----#----#--##
-#-$---#---$-$--#
-#--$--#--$-##--#
-#-$$--##$-$----#
-##-#--##-#######
-##-#--##----...#
-#--#$-------...#
-#---$$------...#
-#-----##@#--...#
-################
-Title: 84X
+#  #  ###
+#.$#  * ##
+#  @ * * #
+#  ##    #
+#####  ###
+    ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #15 a
+Comment: stoned 3 floors
 
-############
-#------#---##
-#-$--$---#--######
-####--#####------#
--#..--#-----####-#
--#.####--####----#
--#....----#--$-####
--#-...#---#-$$$#--##
-###.####-##--$@$---#
-#-----#####-$-#----#
-#-#.#-$------$###$-#
-#-#.########--#--$-#
-#-#..--------##--$-#
-#-#-#######-$-#-#--#
-#---#-----#-------##
-#####-----##########
-Title: 85X
+#######
+#  #  ###
+#.$#    ##
+#  @ * * #
+#  ## *  #
+#####   ##
+    #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #15 b
+Comment: stoned 2 floors, moved a goal
 
-################
-#-------#@-#---#
-#-#-#-#-#-$--$$#
-#-#...#-#$$$---#
-#--...#-#-$--$$##
-#-##.##-#-##----#
-#-#...-----$----#
-#-##-###--#######
-#----#-####
-######
-Title: 86X
+  ####
+  #  #####
+ ##      #
+ # .**$  #
+## #  # ##
+#  ***. #
+# $    ##
+##### @#
+    ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #18
+Comment: added a box
 
-----#####
--####---##-#####
--#--$----###---#
--#-$@$-$----$--#
--#-#$########-##
--#-#--$--#-----#
--#-#-$-$-#-#---#
-##-#--$#-#-#####
-#--##----#-----#
-#----$-#-###---#
-#####-##--#....#
-#----$-----....#
-#---------#....#
-################
-Title: 87X
+ #######
+ #  .  #
+ #  $# #
+###$$+.##
+ #  $# #
+ #  .  #
+ #######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #22
+Comment: moved 2 goals
+Date: 2010.10.6
 
-#############
-#........####
-#...####-#--#####
-#...#--###----$-#
-#...$$-----$-$--#
-#--.#--$-$#-$--##
-#...#-#$#---$--#
-#.#-#-$---$----#
-#.--#$###$####$#
-##--#---$-$----#
--#--#--$@$--#--#
--#--#-####-$--$#
--#--#----###---#
--#--#-$$-#-#####
--#--#----#
--#########
-Title: 88X
+     #####
+ #####   #
+ #  ##$# ##
+## **  $  #
+# .*.+# $ #
+#  ** #   #
+##   ######
+ #   #
+ #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #28
+Comment: added a box, moved a goal
+Date: 2010.10.6
 
--##################
--#---$-------...#.##
--#-------####.....-#
--#-#######--#.....-#
--#-#----$-$-##....##
--#-#--$-#-#-###...#
--#-#-$@$-$--#####-#
-##-#--$--$-$$---$-#
-#--#$#-$#---#-$##-#
-#-##----##-##-$-#-#
-#-#-$#-$-$--#-----#
-#-#---------#######
-#-########$##---#
-#--------#--$---#
-########----#####
--------###--#
----------####
-Title: 89X
+ #######
+#   .   #
+# #$#$# #
+# $. .$ #
+#.# $ #.#
+# $...$ #
+# #$#$# #
+#   +   #
+ #######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #35
+Comment: added a box
 
-####################
-#..#----#----------#
-#.$--$--#$$--$##-$##
-#.$#--###--##-##---#
-#--#-$-#--$$---$---#
-#-###--#-#--#$--####
-#--##-#-$---#@-#---#
-#-$----$--##.##--$-#
-#--#-$#-$#-$-----###
-#--#--#--#---###---#
-#--########-#------#
-#-----------#--#.#.#
-##$########$#---...#
-#----.*--#----##.#.#
-#-.*...*---$--.....#
-####################
-Title: 90X`;
+ #######
+##     ##
+# $.$.$ #
+# .$.$. #
+# $.*.$ #
+# .$.$. #
+# $.$.$ #
+##  @  ##
+ #######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #38
+Comment: added a box
+
+     ####
+     #  #### #####
+     #     # #   ######
+     # $$  # #        #
+   ####  $## ##....  .#
+   #    $ ##  ##  #. .#
+#### ##$#  #   #  #. ##
+#  $$##@## ######### ###
+# #    $               #
+#   ### ### ########   #
+##### #     #      #####
+      #######
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #42 Classic level #1 revised
+Comment: added a box, stoned 3 floors
+
+         ####
+##########  #
+#   $   ... #
+#  $ $   #  #
+#### #### . #
+  # $  @  ###
+  #   #####
+  #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #44
+Comment: stoned 2 floors
+
+########
+#   #  ####
+# # @     #
+# # * $$# #
+#  #*##   #
+##  *.  ###
+ ##.* ###
+  #  ##
+  #  #
+  ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #45
+Comment: added a box
+
+    ########
+    #  @   #
+ ####$$#$# ##
+ #          #
+ # ##*##### #
+ # # .... # #
+## # .... # ##
+#  #####$##  #
+# $  $    $$ #
+###   #   #  #
+  ############
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #46
+Comment: added a box and a wall, small changes
+Date: 2010.8.31
+
+ ####
+ #  #######
+##.$#  *  #
+#     * * #
+# @ #  *  #
+######* ###
+     #   #
+     #   #
+     #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #55
+Comment: stoned 2 floors
+
+#########
+###    ##  ####
+#    * ##  #  #
+# ****  ####$.##
+#  *@*      $..#
+#  **** ####   #
+## * $  #  #####
+##    ###
+#########
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #57
+Comment: added a box
+
+ ####
+ #  ###
+ # $* #######
+ #  . $ #   #
+###.# . $ # #
+#   .*#*. $ #
+# # $ . #@###
+#   # $ .  #
+####### *$ #
+      ###  #
+        ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #62
+Comment: added a box
+
+    ####
+#####  #
+# $.$ *#
+#  . . ###
+###*. $$ #
+ # .#.   #
+##$. $.###
+# $ #$ #
+# @    #
+########
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #73
+Comment: added a wall
+
+ #####
+ #   #
+ # # ####
+ # $.*  #
+ # .$ * #
+###*#$.@#
+#  .$ * #
+# #$.*  #
+#    ####
+#   ##
+#####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #77
+Comment: stoned 2 floors
+
+  ####
+  #  #
+  # $#
+###  #
+# $ $###
+# ..$  #
+##.@*  #
+ #.. ###
+ #.$$###
+ #. $  #
+ ###   #
+   #####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #78
+Comment: stoned many floors
+
+#######
+#   @ #
+# $ $ #####
+####$...  #
+   # .# * ###
+   #$...$#  #
+   # .#.$ $ #
+   #$.$$.   #
+   #  #  ####
+   ####$ #
+      #  #
+      ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #80
+Comment: stoned many floors
+
+  #######
+  #  #  #
+  # $$$ #
+  #.....#
+####$.$##
+#   $. ###
+# $  .   #
+####$.$  #
+   # @####
+   ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #82
+Comment: stoned 4 floors
+
+   ####    #####
+   #  #    #   #
+   # $#    #$# ##
+   #  ######    #
+   ## . $ .  $# #
+#####$.#.#. #   #
+#   # .#.#.$#####
+# $ @ .$. . #
+####  $.$.$ ##
+  #  ######  #
+  # $#    #$ #
+  #  #    #  #
+  ####    ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #85 ("W" letter)
+Comment: redraw map
+Date: 2010.9.22
+
+       #
+ #############
+ ## *     .  #
+ # .$.$$$.$. #
+##.$*$.*.$*$.##
+ # .$.$$$.$. #
+ #@ .     *  #
+ #############
+       #
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #89
+Comment: added 2 boxes, a wall
+
+      # #
+ #############
+ ##   .$.   ##
+##.$  $.$  $.##
+ #$.*** ***.$#
+##.$  $.$  $.##
+ ##@  .$.   ##
+ #############
+      # #
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #90
+Comment: added 4 walls
+
+      ###
+ #############
+ ## $.   .$  #
+##  *$.$. *  ##
+## .$.$*$.$. ##
+##  * .$.$*  ##
+ ##@$.   .$ ##
+ #############
+      ###
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #91
+Comment: added 2 boxes, 3 walls
+
+     # # #
+ #############
+ #         . #
+ # .**$  **$ #
+###*  ***  *###
+ # $**  $**. #
+ #@.         #
+ #############
+     # # #
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #92 a
+Comment: added 2 walls, moved 2 boxes
+
+     # # #
+ #############
+ # $       . #
+ # .**   **$ #
+## *  ###  * ##
+ # $** # **. #
+ #@.       $ #
+ #############
+     # # #
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #92 b
+Comment: stoned 3 boxes, added a wall
+
+     ## ##
+ #############
+##   .   .   ##
+## $$*$$$*$$ ##
+ #.....#.....#
+## $$*$$$*$$ ##
+##@  .   .   ##
+ #############
+     ## ##
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #93
+Comment: stoned a box
+
+   ### # ###
+ #############
+ ###   .     #
+## .$ $$$.$. ##
+##*$.*...*.$*##
+## .$.$$$ $. ##
+ #@    *   ###
+ #############
+   ### # ###
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #94
+Comment: added a box, 4 walls
+
+  ### #### ###
+ ##############
+##    #       ##
+ #$.$  .$.$.$.#
+##.$.$.$.$.$.$##
+##$.$.$.$.$.$.##
+ #.$.$.$.  $.$#
+##@      #    ##
+ ##############
+  ### #### ###
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #97
+Comment: added 2 walls
+
+  ## # ## # ##
+ ##############
+##    .  $    ##
+##**.**$$**.**##
+ #  $ ...$ $  #
+ #  $ $... $  #
+##**.**$$**.**##
+##@   $  .    ##
+ ##############
+  ## # ## # ##
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #98
+Comment: added 2 boxes
+
+                      ####   ##### ####
+           ########   #  #   #   ###  #
+ ###########  #   #####  #   #        #
+##            #          ######## ##  #
+#  ###### $   ## ###### ##  #   #  # ####
+# ........#####  #   #      #      # #  #
+## ###### ##  #      #   #  ## ##  # #  #
+ # #   #      #  ## ###### ###  #### #  #
+##     #   #  ####  #   #       #  # # ##
+#  ## ###### ##  #      #   ##  #      #
+#  #  #   #      #  ## ##########  ##$ #
+#  #      #   #  ##### #     #  ## ##  ##
+####  ## ###### ##   # #   $ #      #   #
+   ##### ##  #     $   #  ####  #   #   #
+   #   #  # $#   ##  # ## #  ## #########
+   #      #  #########  # #      #   #  #
+##### ##  #             # #  #   #      #
+#   #  ####   #######  ## ## ###### ##  #
+#      #  #####  ## ##### ##  #   #  # ##
+### #  #          #     # # $ #      # #
+  # ####  ### ##  #    ## #   ## ##  # #
+  # #  ## ##   # ##    #  ## ###  #### #
+  # #      # $ # #     #          #  # ###
+ ## #  #   #  ## ##### ##  #####  #      #
+ #  ## ###### ## ##  #######   ####  #   #
+ #      #   #  # #             #  ## #####
+ #  #   #      # #  #########  #      #
+ ######### ##  # ## #  ##   #$ #  #   #
+ #   #   #  ####  #   $     #  ## #####
+ #   #      # $   # #   ## ###### ##  ####
+ ##  ## ##  #     # #####  #   #      #  #
+  # $##  ########## ##  #      #   #  #  #
+  #      #  ##   #      #  ## ###### ##  #
+ ## # #  #       #   #  ####  #   #     ##
+ #  # ####  ### ###### ##  # $  $ #   # #
+ #  # #  ## ##  #   #      #  ## ###### ##
+ #  # #      #      #   #  #####*+...... #
+ #### #  #   #  ## ###### ##   $ ######  #
+   #  ## ########          #     $      ##
+   #        #   #  #####   #  ###########
+   #  ###   #   #  #   ########
+   #### #####   ####
+Author: David W. Skinner + Jordi Domenech
+Title: Microban IV #101
+Comment: added 15 boxes, redraw goals area
+Date: 2010.8.31`;
 
 const result = parseSokobanFile(fileContent);
 
-writeFileSync("./public/original.json", JSON.stringify(result))
+writeFileSync("./public/beginners2.json", JSON.stringify(result))

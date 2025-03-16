@@ -26,15 +26,15 @@
       --color-green: #27ae60;
       --color-orange: #e67e22;
       --color-yellow: #ddb61c;
-      --color-dark: #333;
+      --color-dark: #363636;
       --color-gray-light: #111;
-      --color-gray: #333;
-      --color-gray-medium: #444;
+      --color-gray: #111;
+      --color-gray-medium: #363636;
       --color-gray-dark: #aaa;
       --color-text-primary: #eee;
       --color-text-secondary: #aaa;
       --color-white: #fff;
-      --color-bg-primary: #111;
+      --color-bg-primary: #222;
       --color-bg-secondary: #222;
     }
   }

@@ -33,13 +33,11 @@ export function isPosOutOfBounds(level: Level, x: number, y: number) {
 }
 
 export function findPlayerInLevel(level: Level): LevelPosition | null {
-  return (
-    level
-      .flatMap((row, y) =>
-        row.map((type, x) => (type === CELL.PLAYER ? { x, y } : null))
-      )
-      .find(Boolean) ?? null
-  );
+  return level
+  .flatMap((row, y) =>
+    row.map((type, x) => (type === CELL.PLAYER || type === CELL.PLAYER_ON_TARGET ? { x, y } : null))
+  )
+  .find(Boolean) ?? null
 }
 
 export function isLevelDone(level: Level) {
