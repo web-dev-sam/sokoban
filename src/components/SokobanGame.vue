@@ -19,6 +19,7 @@ import WinView from "./WinView.vue";
 import SokobanStats from "./SokobanStats.vue";
 import SokobanBoard from "./SokobanBoard.vue";
 import SokobanToolbar from "./SokobanToolbar.vue";
+import { solve } from "@/utils/solver";
 
 const { time, startTimer, stopTimer, restartTimer } = useTimer();
 const { confetti } = useConfetti();
@@ -72,7 +73,69 @@ watch(moves, () => {
   }
 });
 
+const solutionMode = ref(false);
 onKeyStroke(true, (event) => {
+  if (event.key === "´") {
+    solutionMode.value = true;
+    return;
+  }
+
+  if (solutionMode.value) {
+    solutionMode.value = false;
+    switch (event.key) {
+      case "i":
+        console.log("Solving with IDA*...");
+        const istartTime = performance.now();
+        const isolution = solve("ida", level.value);
+        const iendTime = performance.now();
+        console.log(
+          `Solution found in ${(iendTime - istartTime).toFixed(2)}ms:`,
+          isolution
+        );
+        break;
+      case "a":
+        console.log("Solving with A*...");
+        const astartTime = performance.now();
+        const asolution = solve("astar", level.value);
+        const aendTime = performance.now();
+        console.log(
+          `Solution found in ${(aendTime - astartTime).toFixed(2)}ms:`,
+          asolution
+        );
+        break;
+      case "b":
+        console.log("Solving with BFS...");
+        const bstartTime = performance.now();
+        const bsolution = solve("bfs", level.value);
+        const bendTime = performance.now();
+        console.log(
+          `Solution found in ${(bendTime - bstartTime).toFixed(2)}ms:`,
+          bsolution
+        );
+        break;
+      case "d":
+        console.log("Solving with DFS...");
+        const dstartTime = performance.now();
+        const dsolution = solve("dfs", level.value);
+        const dendTime = performance.now();
+        console.log(
+          `Solution found in ${(dendTime - dstartTime).toFixed(2)}ms:`,
+          dsolution
+        );
+        break;
+      case "u":
+        console.log("Solving with UCS...");
+        const ustartTime = performance.now();
+        const usolution = solve("ucs", level.value);
+        const uendTime = performance.now();
+        console.log(
+          `Solution found in ${(uendTime - ustartTime).toFixed(2)}ms:`,
+          usolution
+        );
+        break;
+    }
+  }
+
   if (isLevelSelectorShown.value) {
     if (event.key.toLowerCase() === "d" || event.key === "ArrowRight")
       currentLevelIndex.value++;
