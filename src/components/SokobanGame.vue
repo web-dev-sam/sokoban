@@ -11,7 +11,7 @@ import {
   type Level,
   type LevelPosition,
 } from "@/utils/utils";
-import { createLevel } from "@/composables/useLevels";
+import { createLevel, selectedCollectionIndex } from "@/composables/useLevels";
 import { useConfetti } from "@/composables/useConfetti";
 import { useTimer } from "@/composables/useTimer";
 import LevelSelector from "./LevelSelector.vue";
@@ -25,7 +25,7 @@ const { time, startTimer, stopTimer, restartTimer } = useTimer();
 const { confetti } = useConfetti();
 
 const currentLevelIndex = ref(0);
-const recordKey = computed(() => `own-record-level-${currentLevelIndex.value}`);
+const recordKey = computed(() => `own-record-collection-${selectedCollectionIndex.value}-level-${currentLevelIndex.value}`);
 const ownRecord = useLocalStorage(
   recordKey,
   { moves: null as number | null, time: null as number | null },
