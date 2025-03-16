@@ -20,11 +20,13 @@ export const levels = ref<LevelData>([
 ]);
 
 
-export function createLevel(index: number): { level: Level, playerPos: LevelPosition } {
+export function createLevel(index: number): { level: Level, title: string, playerPos: LevelPosition } {
   const isValidIndex = index < levels.value.length;
-  const level = deepCopy(levels.value[isValidIndex ? index : 0].level);
+  const newLevel = levels.value[isValidIndex ? index : 0];
+  const level = deepCopy(newLevel.level);
   return {
     level,
+    title: newLevel.title,
     playerPos: findPlayerInLevel(level)! // Assuming there is always a player in a level
   };
 }

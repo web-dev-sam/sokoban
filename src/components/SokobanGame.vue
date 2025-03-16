@@ -40,15 +40,21 @@ const lastLevel = useLocalStorage(
 const isLevelSelectorShown = ref(false);
 const currentLevelIndex = ref(lastLevel.value.index);
 const level = ref<Level>([]);
+const title = ref("");
 const playerPosition = ref<LevelPosition>({ x: 0, y: 0 });
 const moves = ref(0);
 const moveHistory = ref<GameState[]>([]);
 const gameStatus = ref<"won" | "playing">("playing");
 
 onMounted(async () => {
-  const { level: newLevel, playerPos } = createLevel(currentLevelIndex.value);
+  const {
+    level: newLevel,
+    playerPos,
+    title: newTitle,
+  } = createLevel(currentLevelIndex.value);
   level.value = newLevel;
   playerPosition.value = playerPos;
+  title.value = newTitle;
   startTimer();
 });
 onUnmounted(() => stopTimer());
@@ -177,9 +183,10 @@ function undoMove() {
 }
 
 function restartGame() {
-  const { level: newLevel, playerPos } = createLevel(currentLevelIndex.value);
+  const { level: newLevel, playerPos, title: newTitle } = createLevel(currentLevelIndex.value);
   level.value = newLevel;
   playerPosition.value = playerPos;
+  title.value = newTitle;
   moves.value = 0;
   moveHistory.value = [];
   isLevelSelectorShown.value = false;
@@ -189,9 +196,10 @@ function restartGame() {
 
 function selectLevel(index: number) {
   currentLevelIndex.value = index;
-  const { level: newLevel, playerPos } = createLevel(index);
+  const { level: newLevel, playerPos, title: newTitle } = createLevel(index);
   level.value = newLevel;
   playerPosition.value = playerPos;
+  title.value = newTitle;
   moves.value = 0;
   moveHistory.value = [];
   isLevelSelectorShown.value = false;
@@ -213,6 +221,7 @@ function selectLevel(index: number) {
     :time
     :record-moves="ownRecord.moves"
     :record-time="ownRecord.time"
+    @restart="restartGame"
   />
 
   <div
@@ -221,7 +230,7 @@ function selectLevel(index: number) {
     tabindex="0"
     ref="boardRef"
   >
-    <SokobanStats :moves :time />
+    <SokobanStats :moves :time :title />
     <SokobanBoard :level />
     <SokobanToolbar />
   </div>

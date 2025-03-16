@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { levels } from "@/composables/useLevels";
 import { onClickOutside } from "@vueuse/core";
-import { useTemplateRef, computed } from "vue";
+import { useTemplateRef } from "vue";
 import { CELL } from "@/utils/utils";
 
 defineProps<{
@@ -100,7 +100,7 @@ function generateLevelSvg(level: string[][]) {
         <h2 class="text-2xl font-light text-[#2c3e50]">Select a Level</h2>
         <button
           @click="$emit('close')"
-          class="text-[#999] hover:text-[#666] text-xl"
+          class="text-[#999] hover:text-[#666] text-2xl cursor-pointer"
         >
           ×
         </button>
@@ -112,10 +112,10 @@ function generateLevelSvg(level: string[][]) {
           v-for="(levelData, index) in levels"
           :key="index"
           @click="selectLevel(index)"
-          class="p-4 bg-[#f5f5f5] hover:bg-[#e0e0e0] rounded-lg transition-colors duration-200 flex flex-col items-center"
+          class="p-4 bg-[#f5f5f5] hover:bg-[#e0e0e0] rounded-lg transition-colors duration-200 flex flex-col items-center cursor-pointer"
           :class="{ 'border-2 border-[#3498db]': index === selectedLevelIndex }"
         >
-          <div class="text-lg font-light mb-2">Level {{ index + 1 }}</div>
+          <div class="text-lg font-light mb-2">{{ levels[index].title }}</div>
           <div
             class="w-full aspect-square bg-[#fafafa] rounded overflow-hidden flex items-center justify-center"
             v-html="generateLevelSvg(levelData.level)"

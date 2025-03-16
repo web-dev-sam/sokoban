@@ -100,7 +100,51 @@ function parseSokobanFile(fileContent: string): LevelData[] {
     }
   }
 
+  optimizeLevelFormat(levels);
+
   return levels;
+}
+
+function optimizeLevelFormat(levels: LevelData[]) {
+  for (let i = 0; i < levels.length; i++) {
+    levels[i].l = compressString(levels[i].l);
+  }
+  return levels;
+}
+
+function compressString(input: string): string {
+  // Split the input by lines
+  const lines = input.split('|');
+  const compressedLines: string[] = [];
+
+  for (const line of lines) {
+    let compressed = '';
+    let count = 1;
+    let currentChar = line[0];
+
+    for (let i = 1; i <= line.length; i++) {
+      // If the current character is the same as the previous one, increment count
+      if (i < line.length && line[i] === currentChar) {
+        count++;
+      } else {
+        // If we have more than one of the same character, add the count
+        if (count > 1) {
+          compressed += count.toString() + currentChar;
+        } else {
+          compressed += currentChar;
+        }
+        
+        // Reset for next character
+        if (i < line.length) {
+          currentChar = line[i];
+          count = 1;
+        }
+      }
+    }
+    compressedLines.push(compressed);
+  }
+
+  return compressedLines.join('|');
 }
 
 function processLevel(levelLines: string[]): string | null {

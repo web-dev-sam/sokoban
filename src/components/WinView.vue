@@ -54,7 +54,7 @@ defineEmits<{
 
       <button
         @click="$emit('restart')"
-        class="px-6 py-3 bg-[#3498db] text-white rounded-lg hover:bg-[#2980b9] transition-colors duration-200 focus:outline-none"
+        class="px-6 py-3 bg-[#3498db] text-white rounded-lg hover:bg-[#2980b9] transition-colors duration-200 focus:outline-none cursor-pointer"
       >
         Play Again
       </button>
