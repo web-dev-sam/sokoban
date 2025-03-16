@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, onMounted, onUnmounted } from "vue";
+import { ref, watch, onMounted, onUnmounted, computed } from "vue";
 import { onKeyStroke, useLocalStorage } from "@vueuse/core";
 import {
   CELL,
@@ -22,14 +22,16 @@ import SokobanToolbar from "./SokobanToolbar.vue";
 
 const { time, startTimer, stopTimer, restartTimer } = useTimer();
 const { confetti } = useConfetti();
+
+const currentLevelIndex = ref(0);
+const recordKey = computed(() => `own-record-level-${currentLevelIndex.value}`);
 const ownRecord = useLocalStorage(
-  "own-record",
+  recordKey,
   { moves: null as number | null, time: null as number | null },
   { mergeDefaults: true }
 );
 
 const isLevelSelectorShown = ref(false);
-const currentLevelIndex = ref(0);
 const level = ref<Level>([]);
 const title = ref("");
 const playerPosition = ref<LevelPosition>({ x: 0, y: 0 });
