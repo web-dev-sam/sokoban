@@ -1,11 +1,11 @@
 import { writeFileSync } from "fs";
 
-type Level = string[][];
 type LevelData = {
-  author: string;
-  email: string;
-  url: string;
-  level: Level;
+  t: string;
+  a: string;
+  e: string;
+  u: string;
+  l: string;
 };
 
 function parseSokobanFile(fileContent: string): LevelData[] {
@@ -27,7 +27,13 @@ function parseSokobanFile(fileContent: string): LevelData[] {
   }
 
   // Extract levels
-  const levels: LevelData[] = [];
+  const levels: LevelData[] = [{
+    t: "Tutorial",
+    e: "sam@webry.com",
+    a: "",
+    u: "https://sokoban.webry.com/",
+    l: "#####|#...#|#$$$#|#@  #|#####"
+  }];
   let currentLevel: string[] = [];
   let inLevel = false;
   let currentTitle = '';
@@ -51,10 +57,11 @@ function parseSokobanFile(fileContent: string): LevelData[] {
         const processedLevel = processLevel(currentLevel);
         if (processedLevel) {
           levels.push({
-            author: currentAuthor || globalAuthor,
-            email: globalEmail,
-            url: globalUrl,
-            level: processedLevel
+            t: currentTitle,
+            a: currentAuthor || globalAuthor,
+            e: globalEmail,
+            u: globalUrl,
+            l: processedLevel
           });
         }
         currentLevel = [];
@@ -67,10 +74,11 @@ function parseSokobanFile(fileContent: string): LevelData[] {
       const processedLevel = processLevel(currentLevel);
       if (processedLevel) {
         levels.push({
-          author: currentAuthor || globalAuthor,
-          email: globalEmail,
-          url: globalUrl,
-          level: processedLevel
+          t: currentTitle,
+          a: currentAuthor || globalAuthor,
+          e: globalEmail,
+          u: globalUrl,
+          l: processedLevel
         });
       }
       currentLevel = [];
@@ -83,10 +91,11 @@ function parseSokobanFile(fileContent: string): LevelData[] {
     const processedLevel = processLevel(currentLevel);
     if (processedLevel) {
       levels.push({
-        author: currentAuthor || globalAuthor,
-        email: globalEmail,
-        url: globalUrl,
-        level: processedLevel
+        t: currentTitle,
+        a: currentAuthor || globalAuthor,
+        e: globalEmail,
+        u: globalUrl,
+        l: processedLevel
       });
     }
   }
@@ -94,13 +103,13 @@ function parseSokobanFile(fileContent: string): LevelData[] {
   return levels;
 }
 
-function processLevel(levelLines: string[]): Level | null {
+function processLevel(levelLines: string[]): string | null {
   let maxWidth = 0;
   for (const line of levelLines) {
     maxWidth = Math.max(maxWidth, line.length);
   }
 
-  const grid: string[][] = [];
+  const grid: string[] = [];
 
   for (const line of levelLines) {
     const row: string[] = [];
@@ -127,11 +136,11 @@ function processLevel(levelLines: string[]): Level | null {
     }
 
     if (row.some(cell => cell !== ' ')) {
-      grid.push(row);
+      grid.push(row.join(""));
     }
   }
 
-  return grid.length > 0 ? grid : null;
+  return grid.length > 0 ? grid.join("|") : null;
 }
 
 
@@ -1771,4 +1780,4 @@ Title: 90X`;
 
 const result = parseSokobanFile(fileContent);
 
-writeFileSync("./src/assets/original.json", JSON.stringify(result))
+writeFileSync("./public/original.json", JSON.stringify(result))

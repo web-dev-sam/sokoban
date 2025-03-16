@@ -2,14 +2,19 @@ import { deepCopy, DEFAULT_LEVEL, findPlayerInLevel, type Level, type LevelPosit
 import { ref } from "vue";
 
 
-export const levels = ref<Array<{
+export type LevelData = {
   title: string
   author: string
+  email: string
+  url: string
   level: Level
-}>>([
+}[];
+export const levels = ref<LevelData>([
   {
     title: "Tutorial",
     author: "",
+    email: "sam@webry.com",
+    url: "https://sokoban.webry.com/",
     level: DEFAULT_LEVEL,
   }
 ]);
