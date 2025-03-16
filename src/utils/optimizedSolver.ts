@@ -1,4 +1,4 @@
-import { CELL, findPlayerInLevel, isLevelDone, isPosOutOfBounds } from "./utils";
+import { CELL, findPlayerInLevel, isPosOutOfBounds } from "./utils";
 import type { Level, LevelPosition } from "./utils";
 
 // Define directions for movement
