@@ -2,7 +2,7 @@
 
 A modern, minimalistic Sokoban puzzle game built with Vue 3 and TypeScript.
 
-![Sokoban Game](https://github.com/user/soko-deutsche-bahn/raw/main/public/screenshot.png)
+![Sokoban Game](https://github.com/web-dev-sam/sokoban/raw/main/.github/demo.png){width=60%}
 
 ## Features
 
