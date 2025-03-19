@@ -3,6 +3,7 @@ import ConfettiLauncher from "./components/ConfettiLauncher.vue";
 import SokobanGame from "./components/SokobanGame.vue";
 import UILoader from "./components/ui/UILoader.vue";
 import { useConfetti } from "./composables/useConfetti";
+import { Github } from "lucide-vue-next";
 import {
   allLevels,
   collections,
@@ -66,6 +67,14 @@ async function loadLevels(collection: (typeof COLLECTIONS)[number]) {
   <div
     class="flex flex-col items-center justify-center min-h-screen p-8 bg-gray-light"
   >
+    <a
+      href="https://github.com/web-dev-sam/sokoban"
+      rel="noreferrer noopener"
+      target="_blank"
+      class="text-white absolute bottom-0 left-0 p-3 m-6 hover:bg-bg-primary rounded cursor-pointer"
+    >
+      <Github />
+    </a>
     <h1 class="sr-only">Sokoban</h1>
     <ConfettiLauncher :trigger="confettiTrigger" />
     <UILoader :loadingStatus>
