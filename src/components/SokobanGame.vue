@@ -7,6 +7,7 @@ import {
   findPlayerInLevel,
   isLevelDone,
   isPosOutOfBounds,
+  wait,
   type GameState,
   type Level,
   type LevelPosition,
@@ -20,12 +21,17 @@ import SokobanStats from "./SokobanStats.vue";
 import SokobanBoard from "./SokobanBoard.vue";
 import SokobanToolbar from "./SokobanToolbar.vue";
 import { solve } from "@/utils/solver";
+import { findPathToCell } from "@/utils/pathFinder";
 
 const { time, startTimer, stopTimer, restartTimer } = useTimer();
 const { confetti } = useConfetti();
 
 const currentLevelIndex = ref(0);
-const recordKey = computed(() => `own-record-collection-${selectedCollectionIndex.value}-level-${currentLevelIndex.value}`);
+const movingBlocked = ref(false);
+const recordKey = computed(
+  () =>
+    `own-record-collection-${selectedCollectionIndex.value}-level-${currentLevelIndex.value}`
+);
 const ownRecord = useLocalStorage(
   recordKey,
   { moves: null as number | null, time: null as number | null },
@@ -154,6 +160,12 @@ onKeyStroke(true, (event) => {
     return;
   if (gameStatus.value === "won" && !allowedInWinView.includes(event.key))
     return;
+  if (
+    movingBlocked.value &&
+    (["w", "s", "a", "d", "u", "r"].includes(event.key.toLowerCase()) ||
+      event.key.startsWith("Arrow"))
+  )
+    return;
 
   switch (event.key) {
     case "ArrowUp":
@@ -193,7 +205,7 @@ onKeyStroke(true, (event) => {
   }
 });
 
-function move(dx: number, dy: number) {
+function move(dx: number, dy: number, addToHistory = false) {
   if (gameStatus.value === "won") return;
 
   const player = playerPosition.value;
@@ -207,11 +219,13 @@ function move(dx: number, dy: number) {
   const hasHitWall = targetCell === CELL.WALL;
   if (hasHitWall) return;
 
-  moveHistory.value.push({
-    level: deepCopy(level.value),
-    moveCount: moves.value,
-    time: time.value,
-  });
+  if (addToHistory) {
+    moveHistory.value.push({
+      level: deepCopy(level.value),
+      moveCount: moves.value,
+      time: time.value,
+    });
+  }
 
   if (targetCell === CELL.SPACE || targetCell === CELL.TARGET) {
     level.value[player.y][player.x] =
@@ -285,6 +299,33 @@ function selectLevel(index: number) {
   gameStatus.value = "playing";
   restartTimer();
 }
+
+async function autoMoveTo(x: number, y: number) {
+  const canPlayerBeHere = [CELL.TARGET, CELL.SPACE].includes(level.value[y][x]);
+  if (!canPlayerBeHere) return;
+
+  const path = findPathToCell(level.value, playerPosition.value, x, y);
+  if (path.length === 0) return;
+
+  movingBlocked.value = true;
+  moveHistory.value.push({
+    level: deepCopy(level.value),
+    moveCount: moves.value,
+    time: time.value,
+  });
+
+  const totalTime = 200;
+  const stepTime = totalTime / path.length;
+  for (const i in path) {
+    move(
+      path[i] === "RIGHT" ? 1 : path[i] === "LEFT" ? -1 : 0,
+      path[i] === "DOWN" ? 1 : path[i] === "UP" ? -1 : 0,
+      false
+    );
+    if (+i < path.length - 1) await wait(stepTime);
+  }
+  movingBlocked.value = false;
+}
 </script>
 
 <template>
@@ -312,7 +353,7 @@ function selectLevel(index: number) {
     ref="boardRef"
   >
     <SokobanStats :moves :time :title />
-    <SokobanBoard :level />
+    <SokobanBoard :level @cell-click="autoMoveTo" />
     <SokobanToolbar />
   </div>
 </template>

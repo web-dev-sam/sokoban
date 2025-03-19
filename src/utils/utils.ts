@@ -54,3 +54,7 @@ export function formatTime(time: number | null) {
   const ss = seconds.toString().padStart(2, "0")
   return `${mm}:${ss}`;
 }
+
+export async function wait(ms: number) {
+  await new Promise(res => setTimeout(res, ms));
+}
