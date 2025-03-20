@@ -3,7 +3,7 @@ import ConfettiLauncher from "./components/ConfettiLauncher.vue";
 import SokobanGame from "./components/SokobanGame.vue";
 import UILoader from "./components/ui/UILoader.vue";
 import { useConfetti } from "./composables/useConfetti";
-import { Github, Keyboard, Pointer } from "lucide-vue-next";
+import { Github } from "lucide-vue-next";
 import {
   allLevels,
   collections,
