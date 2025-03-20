@@ -3,16 +3,17 @@ import ConfettiLauncher from "./components/ConfettiLauncher.vue";
 import SokobanGame from "./components/SokobanGame.vue";
 import UILoader from "./components/ui/UILoader.vue";
 import { useConfetti } from "./composables/useConfetti";
-import { Github } from "lucide-vue-next";
+import { Github, Keyboard, Pointer } from "lucide-vue-next";
 import {
   allLevels,
   collections,
   type LevelData,
 } from "./composables/useLevels";
-import { ref } from "vue";
+import { ref, useTemplateRef } from "vue";
 import { decode, type LevelFetchData } from "./utils/decoder";
 
 const { confettiTrigger } = useConfetti();
+const screenRef = useTemplateRef("screen");
 
 const loadingStatus = ref<"success" | "pending" | "fail">("pending");
 
@@ -65,6 +66,7 @@ async function loadLevels(collection: (typeof COLLECTIONS)[number]) {
 
 <template>
   <div
+    ref="screen"
     class="flex flex-col items-center justify-center min-h-screen p-8 bg-gray-light"
   >
     <a
@@ -73,12 +75,21 @@ async function loadLevels(collection: (typeof COLLECTIONS)[number]) {
       target="_blank"
       class="text-white absolute bottom-0 left-0 p-3 m-6 hover:bg-bg-primary rounded cursor-pointer"
     >
-      <Github />
+      <Github stroke-width="1" />
     </a>
+    <!-- <a
+      href="https://github.com/web-dev-sam/sokoban"
+      rel="noreferrer noopener"
+      target="_blank"
+      class="text-white absolute bottom-0 right-0 p-3 m-6 hover:bg-bg-primary rounded cursor-pointer"
+    >
+      <Keyboard stroke-width="1" />
+      <Pointer stroke-width="1" />
+    </a> -->
     <h1 class="sr-only">Sokoban</h1>
     <ConfettiLauncher :trigger="confettiTrigger" />
     <UILoader :loadingStatus>
-      <SokobanGame />
+      <SokobanGame :screenRef />
     </UILoader>
   </div>
 </template>

@@ -1,6 +1,12 @@
 <script setup lang="ts">
-import { ref, watch, onMounted, onUnmounted, computed } from "vue";
-import { onKeyStroke, useLocalStorage } from "@vueuse/core";
+import {
+  ref,
+  watch,
+  onMounted,
+  onUnmounted,
+  computed,
+} from "vue";
+import { onKeyStroke, useLocalStorage, useSwipe } from "@vueuse/core";
 import {
   CELL,
   deepCopy,
@@ -23,8 +29,9 @@ import SokobanToolbar from "./SokobanToolbar.vue";
 import { solve } from "@/utils/solver";
 import { findPathToCell } from "@/utils/pathFinder";
 
-const { time, startTimer, stopTimer, restartTimer } = useTimer();
-const { confetti } = useConfetti();
+const props = defineProps<{
+  screenRef: HTMLDivElement | null;
+}>();
 
 const currentLevelIndex = ref(0);
 const movingBlocked = ref(false);
@@ -32,11 +39,15 @@ const recordKey = computed(
   () =>
     `own-record-collection-${selectedCollectionIndex.value}-level-${currentLevelIndex.value}`
 );
+
+const { time, startTimer, stopTimer, restartTimer } = useTimer();
+const { confetti } = useConfetti();
 const ownRecord = useLocalStorage(
   recordKey,
   { moves: null as number | null, time: null as number | null },
   { mergeDefaults: true }
 );
+const { isSwiping, direction } = useSwipe(props.screenRef);
 
 const isLevelSelectorShown = ref(false);
 const level = ref<Level>([]);
@@ -45,6 +56,8 @@ const playerPosition = ref<LevelPosition>({ x: 0, y: 0 });
 const moves = ref(0);
 const moveHistory = ref<GameState[]>([]);
 const gameStatus = ref<"won" | "playing">("playing");
+const solutionMode = ref(false);
+const mobileMode = ref(true);
 
 onMounted(async () => {
   const {
@@ -79,16 +92,32 @@ watch(moves, () => {
   }
 });
 
-const solutionMode = ref(false);
+watch([isSwiping, direction], ([isSw, dir], [wasSw]) => {
+  if (!wasSw && isSw && mobileMode && dir !== "none") {
+    handleKeyStroke(
+      {
+        left: "a",
+        right: "d",
+        up: "w",
+        down: "s",
+      }[dir]
+    );
+  }
+});
+
 onKeyStroke(true, (event) => {
-  if (event.key === "´") {
+  handleKeyStroke(event.key);
+});
+
+function handleKeyStroke(key: string) {
+  if (key === "´") {
     solutionMode.value = true;
     return;
   }
 
   if (solutionMode.value) {
     solutionMode.value = false;
-    switch (event.key) {
+    switch (key) {
       case "i":
         console.log("Solving with IDA*...");
         const istartTime = performance.now();
@@ -143,31 +172,29 @@ onKeyStroke(true, (event) => {
   }
 
   if (isLevelSelectorShown.value) {
-    if (event.key.toLowerCase() === "d" || event.key === "ArrowRight")
+    if (key.toLowerCase() === "d" || key === "ArrowRight")
       currentLevelIndex.value++;
-    else if (event.key.toLowerCase() === "a" || event.key === "ArrowLeft")
+    else if (key.toLowerCase() === "a" || key === "ArrowLeft")
       currentLevelIndex.value--;
   }
 
   if (gameStatus.value === "won") {
-    if (event.key.toLowerCase() === "n" || event.key === "Enter")
+    if (key.toLowerCase() === "n" || key === "Enter")
       selectLevel(currentLevelIndex.value + 1);
   }
 
   const allowedInLvlSelector = ["l", "L", "R", "r", "Escape"];
   const allowedInWinView = ["l", "L", "R", "r"];
-  if (isLevelSelectorShown.value && !allowedInLvlSelector.includes(event.key))
-    return;
-  if (gameStatus.value === "won" && !allowedInWinView.includes(event.key))
-    return;
+  if (isLevelSelectorShown.value && !allowedInLvlSelector.includes(key)) return;
+  if (gameStatus.value === "won" && !allowedInWinView.includes(key)) return;
   if (
     movingBlocked.value &&
-    (["w", "s", "a", "d", "u", "r"].includes(event.key.toLowerCase()) ||
-      event.key.startsWith("Arrow"))
+    (["w", "s", "a", "d", "u", "r"].includes(key.toLowerCase()) ||
+      key.startsWith("Arrow"))
   )
     return;
 
-  switch (event.key) {
+  switch (key) {
     case "ArrowUp":
     case "W":
     case "w":
@@ -203,9 +230,9 @@ onKeyStroke(true, (event) => {
       isLevelSelectorShown.value = false;
       break;
   }
-});
+}
 
-function move(dx: number, dy: number, addToHistory = false) {
+function move(dx: number, dy: number, addToHistory = true) {
   if (gameStatus.value === "won") return;
 
   const player = playerPosition.value;
@@ -345,7 +372,6 @@ async function autoMoveTo(x: number, y: number) {
     @selectLevel="isLevelSelectorShown = true"
     @next="selectLevel(currentLevelIndex + 1)"
   />
-
   <div
     v-else
     class="flex flex-col justify-center items-center p-4 sm:p-8 outline-none rounded-xl overflow-hidden"

@@ -39,6 +39,9 @@ importers:
       lucide-vue-next:
         specifier: ^0.482.0
         version: 0.482.0(vue@3.5.13(typescript@5.7.3))
+      oxlint:
+        specifier: ^0.16.1
+        version: 0.16.1
       typescript:
         specifier: ~5.7.2
         version: 5.7.3
@@ -223,6 +226,46 @@ packages:
 
   '@neoconfetti/vue@2.2.1':
     resolution: {integrity: sha512-GXe5XoHlMK8VIxmxKuAgF9QQwRoDLmtiwVhONA9rzF+zOLGfOVLxo4OEDZqU9F0gJkB7U23BLlGJ3ouOb+kguw==}
+
+  '@oxlint/darwin-arm64@0.16.1':
+    resolution: {integrity: sha512-7WfP/njgWkxDhbbot9Da1skP18n1ipdbRs24eqtjtDlfvsh9DItLOTlXswKWA9NRFb1zlMSrV8NmjQvoIcuZnw==}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@oxlint/darwin-x64@0.16.1':
+    resolution: {integrity: sha512-dmMMrD82QFSvX+BpMTtEVx+/CX/f8M8bC092xZpfKG3usjl63ikFZxm6dTKEGD+W8bisyog7esN77rtVZYuFDA==}
+    cpu: [x64]
+    os: [darwin]
+
+  '@oxlint/linux-arm64-gnu@0.16.1':
+    resolution: {integrity: sha512-vqA06+18G4Oip8pjBCcXRj5cHg/O7qz8Rqz94bADtMd8Phl7N/Cvq0QSX1ADB2C4kLpaJRcmebXcGDf8DcsG/w==}
+    cpu: [arm64]
+    os: [linux]
+
+  '@oxlint/linux-arm64-musl@0.16.1':
+    resolution: {integrity: sha512-j9AiiUZe5m6kwM1BEErWpQMJQQQ1FhNFtr60yeR2CPhFEsmfK2LynmYJ1sdfJPGkVwgqWtpZUS1HiE1RpgEJ/g==}
+    cpu: [arm64]
+    os: [linux]
+
+  '@oxlint/linux-x64-gnu@0.16.1':
+    resolution: {integrity: sha512-mEs2IIy6KuZCMRATWmCNnqAuFWVUEkxeigx8SLtF3m6RADXm01EbqWdbsJOGB5tz8bIKPk4krfejCzgs+Ahtsw==}
+    cpu: [x64]
+    os: [linux]
+
+  '@oxlint/linux-x64-musl@0.16.1':
+    resolution: {integrity: sha512-5f40u3GHJO+oI4/c3gMp6NmUiwxpHxj6ra8Pn8aJzQUmYPQS41mNKhJauBhUW3kc+GIlUqLeA5PY5RSTMTJNig==}
+    cpu: [x64]
+    os: [linux]
+
+  '@oxlint/win32-arm64@0.16.1':
+    resolution: {integrity: sha512-hj4c22W+z1/OPjAafnglE/nNYqPp0bWvEr5ijwRMbayGxoaiiuIAC/Ah766aXpHb3JtMNjeTP7Gmsn1xyh/0CA==}
+    cpu: [arm64]
+    os: [win32]
+
+  '@oxlint/win32-x64@0.16.1':
+    resolution: {integrity: sha512-Ys3eCETGZ+cVpwBXWYEyWIAGzqjfKqVcfIKngz9CyZwNpWDkvKkPlmTYI5bdNDNBSXwACHUcb4oIUsmxMDqPrA==}
+    cpu: [x64]
+    os: [win32]
 
   '@rollup/rollup-android-arm-eabi@4.35.0':
     resolution: {integrity: sha512-uYQ2WfPaqz5QtVgMxfN6NpLD+no0MYHDBywl7itPYd3K5TjjSghNKmX8ic9S8NU8w81NVhJv/XojcHptRly7qQ==}
@@ -624,6 +667,11 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  oxlint@0.16.1:
+    resolution: {integrity: sha512-W/OtUSS2AnZbI9jxKV3nQdzV/H56CglMZN6b2M9Bsu/SCC9v6g7Mo4MAIcCxYWm0PJwf51p7r8cwePK5d/utHQ==}
+    engines: {node: '>=8.*'}
+    hasBin: true
+
   path-browserify@1.0.1:
     resolution: {integrity: sha512-b7uo2UCUOYZcnF/3ID0lulOJi/bafxa1xPe7ZPsammBSpjSWQkjNxlt635YGS2MiR9GjvuXCtz2emr3jbsz98g==}
 
@@ -808,6 +856,30 @@ snapshots:
   '@jridgewell/sourcemap-codec@1.5.0': {}
 
   '@neoconfetti/vue@2.2.1': {}
+
+  '@oxlint/darwin-arm64@0.16.1':
+    optional: true
+
+  '@oxlint/darwin-x64@0.16.1':
+    optional: true
+
+  '@oxlint/linux-arm64-gnu@0.16.1':
+    optional: true
+
+  '@oxlint/linux-arm64-musl@0.16.1':
+    optional: true
+
+  '@oxlint/linux-x64-gnu@0.16.1':
+    optional: true
+
+  '@oxlint/linux-x64-musl@0.16.1':
+    optional: true
+
+  '@oxlint/win32-arm64@0.16.1':
+    optional: true
+
+  '@oxlint/win32-x64@0.16.1':
+    optional: true
 
   '@rollup/rollup-android-arm-eabi@4.35.0':
     optional: true
@@ -1164,6 +1236,17 @@ snapshots:
   muggle-string@0.4.1: {}
 
   nanoid@3.3.9: {}
+
+  oxlint@0.16.1:
+    optionalDependencies:
+      '@oxlint/darwin-arm64': 0.16.1
+      '@oxlint/darwin-x64': 0.16.1
+      '@oxlint/linux-arm64-gnu': 0.16.1
+      '@oxlint/linux-arm64-musl': 0.16.1
+      '@oxlint/linux-x64-gnu': 0.16.1
+      '@oxlint/linux-x64-musl': 0.16.1
+      '@oxlint/win32-arm64': 0.16.1
+      '@oxlint/win32-x64': 0.16.1
 
   path-browserify@1.0.1: {}
 
